@@ -1,0 +1,6 @@
+export { default as PerfilPage } from "./pages/PerfilPage"
+export { PerfilForm } from "./components/PerfilForm"
+export { perfilService } from "./services/perfil.service"
+export { usePerfil } from "./hooks/usePerfil"
+export { perfilSchema, changePasswordSchema } from "./schemas/perfil.schema"
+export type { PerfilInput, ChangePasswordInput } from "./schemas/perfil.schema"

@@ -1,0 +1,5 @@
+export { default as ConfiguracionPage } from "./pages/ConfiguracionPage"
+export { ConfiguracionForm } from "./components/ConfiguracionForm"
+export { useConfiguracion } from "./hooks/useConfiguracion"
+export { configuracionSchema } from "./schemas/configuracion.schema"
+export type { ConfiguracionInput } from "./schemas/configuracion.schema"
