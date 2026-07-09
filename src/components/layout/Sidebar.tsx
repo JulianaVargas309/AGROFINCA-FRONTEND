@@ -4,9 +4,16 @@ import {
   MapPin,
   Sprout,
   ClipboardList,
-  DollarSign,
   BarChart3,
   Package,
+  ArrowLeftRight,
+  Users,
+  Sun,
+  ShoppingCart,
+  CreditCard,
+  Settings,
+  Tractor,
+  Landmark,
 } from "lucide-react"
 import { cn } from "@/utils/cn"
 
@@ -14,10 +21,17 @@ const navigationItems = [
   { to: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/app/fincas", label: "Fincas", icon: MapPin },
   { to: "/app/lotes", label: "Lotes", icon: Sprout },
+  { to: "/app/cultivos", label: "Cultivos", icon: Tractor },
   { to: "/app/inventario", label: "Inventario", icon: Package },
+  { to: "/app/movimientos", label: "Movimientos", icon: ArrowLeftRight },
   { to: "/app/bitacora", label: "Bitácora", icon: ClipboardList },
-  { to: "/app/finanzas", label: "Finanzas", icon: DollarSign },
+  { to: "/app/trabajadores", label: "Trabajadores", icon: Users },
+  { to: "/app/jornales", label: "Jornales", icon: Sun },
+  { to: "/app/finanzas", label: "Finanzas", icon: Landmark },
+  { to: "/app/ventas", label: "Ventas", icon: ShoppingCart },
+  { to: "/app/gastos", label: "Gastos", icon: CreditCard },
   { to: "/app/reportes", label: "Reportes", icon: BarChart3 },
+  { to: "/app/configuracion", label: "Configuración", icon: Settings },
 ]
 
 interface SidebarProps {

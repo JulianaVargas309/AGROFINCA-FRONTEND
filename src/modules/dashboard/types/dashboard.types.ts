@@ -5,6 +5,11 @@ export interface DashboardStats {
   gastosMes: number
   ingresosMes: number
   balance: number
+  totalAreaSembrada: number
+  produccionCafe: number
+  produccionCania: number
+  roi: number
+  cultivosActivos: number
 }
 
 export interface ActividadReciente {
@@ -34,10 +39,20 @@ export interface GastosResumen {
   categoria: string
 }
 
+export interface UltimoMovimiento {
+  id: number
+  tipo: string
+  cantidad: number
+  unidadMedida: string
+  fecha: string
+  producto?: { id: number; nombre: string }
+}
+
 export interface DashboardData {
   stats: DashboardStats
   actividadesRecientes: ActividadReciente[]
   stockBajo: ProductoStockBajo[]
   ventasResumen: VentasResumen
   gastosPorCategoria: GastosResumen[]
+  ultimosMovimientos: UltimoMovimiento[]
 }

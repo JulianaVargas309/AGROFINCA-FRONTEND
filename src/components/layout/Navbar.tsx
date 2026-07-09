@@ -1,6 +1,7 @@
-import { Menu, X, Sprout } from "lucide-react"
+import { Menu, X, Sprout, Moon, Sun } from "lucide-react"
 import { UserMenu } from "./UserMenu"
 import { NotificationBell } from "./NotificationBell"
+import { useTheme } from "@/hooks/useTheme"
 import type { ReactNode } from "react"
 
 interface NavbarProps {
@@ -10,6 +11,8 @@ interface NavbarProps {
 }
 
 function Navbar({ onToggleSidebar, sidebarOpen, children }: NavbarProps) {
+  const { theme, toggleTheme } = useTheme()
+
   return (
     <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-stone-200 bg-white px-4 sm:px-6">
       <div className="flex items-center gap-3">
@@ -30,6 +33,13 @@ function Navbar({ onToggleSidebar, sidebarOpen, children }: NavbarProps) {
       {children}
 
       <div className="flex items-center gap-1">
+        <button
+          onClick={toggleTheme}
+          className="rounded-lg p-2 text-stone-500 hover:bg-stone-100 transition-colors cursor-pointer"
+          title={theme === "light" ? "Modo oscuro" : "Modo claro"}
+        >
+          {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+        </button>
         <NotificationBell count={3} />
         <UserMenu />
       </div>

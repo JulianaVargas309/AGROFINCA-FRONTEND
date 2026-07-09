@@ -59,7 +59,7 @@ function LoginForm() {
           {...register("password")}
         />
         <div className="mt-1 text-right">
-          <Link to="/forgot-password" className="text-xs text-emerald-700 hover:text-emerald-800">
+                          <Link to="/recuperar-password" className="text-xs text-emerald-700 hover:text-emerald-800">
             ¿Olvidaste tu contraseña?
           </Link>
         </div>

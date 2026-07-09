@@ -14,4 +14,8 @@ export const authService = {
   async refreshToken(token: string): Promise<AuthData> {
     return apiPost<AuthData>(API_ENDPOINTS.AUTH.REFRESH, { refreshToken: token })
   },
+
+  async forgotPassword(documento: string): Promise<{ message: string }> {
+    return apiPost<{ message: string }>(API_ENDPOINTS.AUTH.FORGOT_PASSWORD, { documento })
+  },
 }
