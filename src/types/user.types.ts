@@ -10,7 +10,12 @@ export type Rol = (typeof Rol)[keyof typeof Rol]
 interface User {
   id: number
   nombre: string | null
+  apellido?: string | null
   documento: string
+  correo?: string | null
+  telefono?: string | null
+  foto?: string | null
+  ultimoAcceso?: string | null
   rol: Rol
   activo: boolean
   createdAt: string

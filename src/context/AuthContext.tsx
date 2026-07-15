@@ -67,9 +67,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       id: response.user.id,
       nombre: response.user.nombre ?? response.user.documento,
       documento: response.user.documento,
+      correo: response.user.correo,
+      telefono: response.user.telefono,
+      ultimoAcceso: response.user.ultimoAcceso,
+      foto: response.user.foto,
       rol: response.user.rol as User["rol"],
-      activo: true,
-      createdAt: "",
+      activo: response.user.activo ?? true,
+      createdAt: response.user.createdAt ?? "",
       updatedAt: "",
     })
   }, [])

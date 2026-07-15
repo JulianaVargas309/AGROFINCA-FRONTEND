@@ -5,7 +5,13 @@ export interface AuthData {
     id: number
     nombre: string | null
     documento: string
+    correo?: string | null
+    telefono?: string | null
+    ultimoAcceso?: string | null
+    foto?: string | null
     rol: string
+    activo?: boolean
+    createdAt?: string
   }
 }
 
