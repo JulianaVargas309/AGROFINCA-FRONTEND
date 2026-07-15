@@ -30,10 +30,24 @@ export function usePerfil(): UsePerfilReturn {
   const loadProfile = useCallback(async () => {
     setLoadingProfile(true)
     try {
-      const data = await perfilService.getProfile()
-      setProfile(data)
-    } catch {
-      // non-critical
+      const raw: Record<string, unknown> = await perfilService.getProfile() as unknown as Record<string, unknown>
+      console.log("[Perfil] API response:", raw)
+      const mapped: PerfilData = {
+        id: Number(raw.id) || 0,
+        nombre: String(raw.nombre ?? raw.name ?? ""),
+        apellido: raw.apellido as string | undefined,
+        documento: String(raw.documento ?? raw.document ?? ""),
+        correo: (raw.correo ?? raw.email ?? raw.mail ?? "") as string | undefined,
+        telefono: (raw.telefono ?? raw.phone ?? raw.tel ?? "") as string | undefined,
+        rol: String(raw.rol ?? raw.role ?? ""),
+        foto: (raw.foto ?? raw.photo ?? raw.fotoUrl ?? raw.avatar ?? "") as string | undefined,
+        ultimoAcceso: (raw.ultimoAcceso ?? raw.ultimo_acceso ?? raw.lastLogin ?? raw.last_login ?? raw.lastAccess ?? "") as string | undefined,
+        activo: Boolean(raw.activo ?? raw.active ?? true),
+        createdAt: String(raw.createdAt ?? raw.created_at ?? raw.fechaCreacion ?? ""),
+      }
+      setProfile(mapped)
+    } catch (err) {
+      console.warn("[Perfil] Error al cargar perfil:", err)
     } finally {
       setLoadingProfile(false)
     }
