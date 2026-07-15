@@ -1,6 +1,7 @@
 import { useState } from "react"
-import { NavLink, Link } from "react-router-dom"
+import { NavLink, Link, useNavigate } from "react-router-dom"
 import { useAuth } from "@/hooks/useAuth"
+import { ROUTES } from "@/constants/routes"
 import {
   LayoutDashboard,
   Sprout,
@@ -25,6 +26,7 @@ import {
   UserCog,
   ScrollText,
   ClipboardList,
+  LogOut,
 } from "lucide-react"
 import { cn } from "@/utils/cn"
 import { Rol } from "@/types"
@@ -103,9 +105,15 @@ interface SidebarProps {
 }
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
   const isAdmin = user?.rol === Rol.ADMIN
   const isTrabajador = user?.rol === Rol.TRABAJADOR
+
+  const handleLogout = () => {
+    logout()
+    navigate(ROUTES.LOGIN)
+  }
   const [expanded, setExpanded] = useState<Record<string, boolean>>(() => {
     const saved: Record<string, boolean> = {}
     menuGroups.forEach((g) => { saved[g.label] = true })
@@ -222,6 +230,15 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
             )
           })}
         </nav>
+        <div className="p-3 border-t border-stone-200 dark:border-stone-800">
+          <button
+            onClick={handleLogout}
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20 transition-colors cursor-pointer"
+          >
+            <LogOut size={18} />
+            <span>Cerrar Sesión</span>
+          </button>
+        </div>
       </aside>
     </>
   )
