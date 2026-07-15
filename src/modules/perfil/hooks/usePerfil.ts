@@ -28,17 +28,16 @@ export function usePerfil(): UsePerfilReturn {
   }, [])
 
   const loadProfile = useCallback(async () => {
-    if (!user?.id) return
     setLoadingProfile(true)
     try {
-      const data = await perfilService.getProfile(user.id)
+      const data = await perfilService.getProfile()
       setProfile(data)
     } catch {
       // non-critical
     } finally {
       setLoadingProfile(false)
     }
-  }, [user?.id])
+  }, [])
 
   useEffect(() => {
     loadProfile()
