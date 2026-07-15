@@ -45,8 +45,8 @@ export function useFlujos(): UseFlujosReturn {
         flujoService.getResumen(fechaDesde, fechaHasta),
       ])
       if (!mountedRef.current) return
-      setFlujos(Array.isArray(flujoResult) ? flujoResult : flujoResult.data)
-      setResumen(resumenResult)
+      setFlujos(Array.isArray(flujoResult) ? flujoResult : (flujoResult?.data ?? []))
+      setResumen(resumenResult ?? { ingresos: 0, egresos: 0, balance: 0, porCategoria: [] })
     } catch (err) {
       if (mountedRef.current) {
         setError(err instanceof Error ? err.message : "Error al cargar flujo de efectivo")
@@ -62,12 +62,8 @@ export function useFlujos(): UseFlujosReturn {
     return () => { mountedRef.current = false }
   }, [fetchData])
 
-  const filtered = flujos.filter((f) =>
-    tipoFiltro ? f.tipo === tipoFiltro : true
-  )
-
   return {
-    flujos: filtered,
+    flujos,
     resumen,
     loading,
     error,

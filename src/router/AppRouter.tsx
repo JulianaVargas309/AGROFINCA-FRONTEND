@@ -88,6 +88,7 @@ const NuevaCajaPage = lazy(() => import("@/modules/caja/pages/NuevaCajaPage"))
 const DetalleCajaPage = lazy(() => import("@/modules/caja/pages/DetalleCajaPage"))
 const NuevoMovimientoCajaPage = lazy(() => import("@/modules/caja/pages/NuevoMovimientoCajaPage"))
 const FlujoPage = lazy(() => import("@/modules/flujo/pages/FlujoPage"))
+const NuevoFlujoPage = lazy(() => import("@/modules/flujo/pages/NuevoFlujoPage"))
 const PresupuestosPage = lazy(() => import("@/modules/presupuestos/pages/PresupuestosPage"))
 const NuevoPresupuestoPage = lazy(() => import("@/modules/presupuestos/pages/NuevoPresupuestoPage"))
 const DetallePresupuestoPage = lazy(() => import("@/modules/presupuestos/pages/DetallePresupuestoPage"))
@@ -246,6 +247,7 @@ const appRouter = createBrowserRouter([
       { path: "caja/:id", element: <SuspenseWrapper><DetalleCajaPage /></SuspenseWrapper> },
       { path: "caja/:id/movimiento", element: <SuspenseWrapper><NuevoMovimientoCajaPage /></SuspenseWrapper> },
       { path: "flujo", element: <SuspenseWrapper><FlujoPage /></SuspenseWrapper> },
+      { path: "flujo/nuevo", element: <SuspenseWrapper><NuevoFlujoPage /></SuspenseWrapper> },
       { path: "presupuestos", element: <SuspenseWrapper><PresupuestosPage /></SuspenseWrapper> },
       { path: "presupuestos/nuevo", element: <SuspenseWrapper><NuevoPresupuestoPage /></SuspenseWrapper> },
       { path: "presupuestos/:id", element: <SuspenseWrapper><DetallePresupuestoPage /></SuspenseWrapper> },

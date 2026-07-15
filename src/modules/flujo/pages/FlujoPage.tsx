@@ -22,7 +22,7 @@ const tipoOptions: Option[] = [
 ]
 
 const columns: Column<FlujoEfectivo>[] = [
-  { key: "fecha", header: "Fecha", render: (item) => formatDate(item.fecha) },
+  { key: "fecha", header: "Fecha", render: (item) => item.fecha ? formatDate(item.fecha) : "-" },
   { key: "tipo", header: "Tipo", render: (item) => <Badge color={item.tipo === "INGRESO" ? "success" : "error"}>{item.tipo}</Badge> },
   { key: "categoria", header: "Categoría", render: (item) => item.categoria || "-" },
   { key: "descripcion", header: "Descripción", render: (item) => item.descripcion || "-" },
@@ -30,7 +30,7 @@ const columns: Column<FlujoEfectivo>[] = [
     key: "monto",
     header: "Monto",
     render: (item) => (
-      <span className={`font-semibold ${item.tipo === "INGRESO" ? "text-emerald-700" : "text-red-700"}`}>
+      <span className={`font-semibold ${item.tipo === "INGRESO" ? "text-emerald-700 dark:text-emerald-400" : "text-red-700 dark:text-red-400"}`}>
         {item.tipo === "INGRESO" ? "+" : "-"}{formatCurrency(item.monto)}
       </span>
     ),
@@ -53,34 +53,34 @@ function FlujoPage() {
         <div className="grid gap-4 sm:grid-cols-3">
           <Card>
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400">
                 <TrendingUp size={20} />
               </div>
               <div>
-                <p className="text-sm text-stone-500">Ingresos</p>
-                <p className="text-xl font-bold text-emerald-700">{formatCurrency(resumen.ingresos)}</p>
+                <p className="text-sm text-stone-500 dark:text-stone-400">Ingresos</p>
+                <p className="text-xl font-bold text-emerald-700 dark:text-emerald-300">{formatCurrency(resumen.ingresos)}</p>
               </div>
             </div>
           </Card>
           <Card>
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-50 text-red-600">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400">
                 <TrendingDown size={20} />
               </div>
               <div>
-                <p className="text-sm text-stone-500">Egresos</p>
-                <p className="text-xl font-bold text-red-700">{formatCurrency(resumen.egresos)}</p>
+                <p className="text-sm text-stone-500 dark:text-stone-400">Egresos</p>
+                <p className="text-xl font-bold text-red-700 dark:text-red-300">{formatCurrency(resumen.egresos)}</p>
               </div>
             </div>
           </Card>
           <Card>
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-stone-50 text-stone-600">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-stone-50 text-stone-600 dark:bg-stone-800 dark:text-stone-400">
                 <Wallet size={20} />
               </div>
               <div>
-                <p className="text-sm text-stone-500">Balance</p>
-                <p className={`text-xl font-bold ${resumen.balance >= 0 ? "text-emerald-700" : "text-red-700"}`}>
+                <p className="text-sm text-stone-500 dark:text-stone-400">Balance</p>
+                <p className={`text-xl font-bold ${resumen.balance >= 0 ? "text-emerald-700 dark:text-emerald-300" : "text-red-700 dark:text-red-300"}`}>
                   {formatCurrency(resumen.balance)}
                 </p>
               </div>
@@ -90,20 +90,20 @@ function FlujoPage() {
       )}
 
       {/* Categorias summary */}
-      {resumen && resumen.porCategoria.length > 0 && (
+      {resumen && (resumen.porCategoria?.length ?? 0) > 0 && (
         <Card title="Distribución por Categoría">
           <div className="space-y-3">
-            {resumen.porCategoria.map((cat) => {
+            {(resumen.porCategoria ?? []).map((cat) => {
               const total = resumen.ingresos + resumen.egresos
               const pct = total > 0 ? Math.round((cat.total / total) * 100) : 0
               return (
                 <div key={cat.categoria} className="flex items-center gap-3">
-                  <span className="text-sm text-stone-600 w-32 truncate">{cat.categoria}</span>
-                  <div className="flex-1 h-2 rounded-full bg-stone-100 overflow-hidden">
+                  <span className="text-sm text-stone-600 dark:text-stone-300 w-32 truncate">{cat.categoria}</span>
+                  <div className="flex-1 h-2 rounded-full bg-stone-100 dark:bg-stone-800 overflow-hidden">
                     <div className="h-full rounded-full bg-emerald-500" style={{ width: `${pct}%` }} />
                   </div>
-                  <span className="text-sm font-medium text-stone-700 w-24 text-right">{formatCurrency(cat.total)}</span>
-                  <span className="text-xs text-stone-400 w-12 text-right">{pct}%</span>
+                  <span className="text-sm font-medium text-stone-700 dark:text-stone-200 w-24 text-right">{formatCurrency(cat.total)}</span>
+                  <span className="text-xs text-stone-400 dark:text-stone-500 w-12 text-right">{pct}%</span>
                 </div>
               )
             })}
