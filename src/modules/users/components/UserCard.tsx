@@ -15,7 +15,7 @@ function UserCard({ user }: UserCardProps) {
     { label: "Documento", value: user.documento, icon: IdCard },
     { label: "Correo", value: user.correo || "-", icon: Mail },
     { label: "Teléfono", value: user.telefono || "-", icon: Phone },
-    { label: "Rol", value: <Badge color={user.rol === "ADMIN" ? "error" : user.rol === "FAMILIAR" ? "info" : "default"}>{user.rol}</Badge>, icon: Shield },
+    { label: "Rol", value: <Badge color={user.rol === "ADMIN" ? "error" : user.rol === "FAMILIAR" ? "info" : user.rol === "TRABAJADOR" ? "warning" : "default"}>{user.rol}</Badge>, icon: Shield },
     { label: "Estado", value: <UserStatus activo={user.activo} />, icon: Shield },
     { label: "Creado", value: formatDate(user.createdAt), icon: Calendar },
     { label: "Último acceso", value: user.ultimoAcceso ? formatDate(user.ultimoAcceso) : "-", icon: Clock },

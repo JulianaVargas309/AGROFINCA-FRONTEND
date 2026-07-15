@@ -105,6 +105,7 @@ interface SidebarProps {
 function Sidebar({ isOpen, onClose }: SidebarProps) {
   const { user } = useAuth()
   const isAdmin = user?.rol === Rol.ADMIN
+  const isTrabajador = user?.rol === Rol.TRABAJADOR
   const [expanded, setExpanded] = useState<Record<string, boolean>>(() => {
     const saved: Record<string, boolean> = {}
     menuGroups.forEach((g) => { saved[g.label] = true })
@@ -117,7 +118,16 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
 
   const isExpanded = (label: string) => expanded[label] ?? true
 
-  const visibleGroups = menuGroups.filter((g) => !g.adminOnly || isAdmin)
+  const trabajadorGroups = new Set(["Dashboard", "Actividades"])
+  const visibleGroups = menuGroups.filter((g) => {
+    if (isTrabajador) {
+      if (g.label === "Personal") {
+        return g.children.some((c) => c.to === "/app/jornales")
+      }
+      return trabajadorGroups.has(g.label)
+    }
+    return !g.adminOnly || isAdmin
+  })
 
   return (
     <>
@@ -185,7 +195,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                 </button>
                 {expanded && (
                   <div className="ml-2 mt-0.5 space-y-0.5 border-l-2 border-stone-100 dark:border-stone-800 pl-2">
-                    {group.children.map((child) => {
+                    {group.children.filter((child) => isTrabajador ? child.to === "/app/jornales" : true).map((child) => {
                       const ChildIcon = child.icon
                       return (
                         <NavLink

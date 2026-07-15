@@ -13,6 +13,7 @@ import { useState } from "react"
 const rolOptions: Option[] = [
   { value: "ADMIN", label: "Admin" },
   { value: "FAMILIAR", label: "Familiar" },
+  { value: "TRABAJADOR", label: "Trabajador" },
   { value: "CONSULTA", label: "Consulta" },
 ]
 

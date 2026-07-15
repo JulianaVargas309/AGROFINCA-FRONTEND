@@ -31,7 +31,7 @@ function UserTable({ users, loading, renderActions }: UserTableProps) {
       key: "rol",
       header: "Rol",
       render: (item) => (
-        <Badge color={item.rol === "ADMIN" ? "error" : item.rol === "FAMILIAR" ? "info" : "default"}>
+        <Badge color={item.rol === "ADMIN" ? "error" : item.rol === "FAMILIAR" ? "info" : item.rol === "TRABAJADOR" ? "warning" : "default"}>
           {item.rol}
         </Badge>
       ),

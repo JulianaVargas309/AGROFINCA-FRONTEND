@@ -2,6 +2,7 @@ export const Rol = {
   ADMIN: "ADMIN",
   FAMILIAR: "FAMILIAR",
   CONSULTA: "CONSULTA",
+  TRABAJADOR: "TRABAJADOR",
 } as const
 
 export type Rol = (typeof Rol)[keyof typeof Rol]

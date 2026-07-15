@@ -12,6 +12,7 @@ const rolOptions: Option[] = [
   { value: "", label: "Todos los roles" },
   { value: "ADMIN", label: "Admin" },
   { value: "FAMILIAR", label: "Familiar" },
+  { value: "TRABAJADOR", label: "Trabajador" },
   { value: "CONSULTA", label: "Consulta" },
 ]
 
