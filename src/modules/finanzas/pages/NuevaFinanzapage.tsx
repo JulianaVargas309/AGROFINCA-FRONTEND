@@ -1,6 +1,7 @@
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
+import { BackButton } from "@/components/shared/BackButton"
 import { GastoForm } from "../components/GastoForm"
 import { VentaForm } from "../components/VentaForm"
 import { finanzaService } from "../services/finanza.service"
@@ -44,7 +45,7 @@ function NuevaFinanzapage() {
   return (
     <div className="space-y-6">
       <Breadcrumb />
-      <PageHeader title={tipo === "gasto" ? "Nuevo Gasto" : "Nueva Venta"} description={tipo === "gasto" ? "Registra un gasto" : "Registra una venta"} />
+      <PageHeader title={tipo === "gasto" ? "Nuevo Gasto" : "Nueva Venta"} description={tipo === "gasto" ? "Registra un gasto" : "Registra una venta"} actions={<BackButton to="/app/finanzas" />} />
       <Card className="max-w-lg">
         {tipo === "gasto" ? (
           <GastoForm mode="create" onSubmit={handleGasto} loading={loading} error={error} onClearError={() => setError(null)} submitLabel="Registrar Gasto" />

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
+import { BackButton } from "@/components/shared/BackButton"
 import { InventarioForm } from "../components/InventarioForm"
 import { inventarioService } from "../services/inventario.service"
 import { ROUTES } from "@/constants/routes"
@@ -31,7 +32,7 @@ function NuevoInventarioPage() {
   return (
     <div className="space-y-6">
       <Breadcrumb />
-      <PageHeader title="Nuevo Producto" description="Registra un nuevo producto en el inventario" />
+      <PageHeader title="Nuevo Producto" description="Registra un nuevo producto en el inventario" actions={<BackButton to="/app/inventario" />} />
       <Card className="max-w-lg">
         <InventarioForm mode="create" onSubmit={handleSubmit} loading={loading} error={error} onClearError={() => setError(null)} submitLabel="Crear Producto" />
       </Card>

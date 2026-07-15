@@ -13,20 +13,20 @@ interface AlertProps {
 
 const severityStyles: Record<Severity, { container: string; icon: string }> = {
   success: {
-    container: "bg-emerald-50 border-emerald-200 text-emerald-800",
-    icon: "text-emerald-500",
+    container: "bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-900/20 dark:border-emerald-800 dark:text-emerald-300",
+    icon: "text-emerald-500 dark:text-emerald-400",
   },
   warning: {
-    container: "bg-amber-50 border-amber-200 text-amber-800",
-    icon: "text-amber-500",
+    container: "bg-amber-50 border-amber-200 text-amber-800 dark:bg-amber-900/20 dark:border-amber-800 dark:text-amber-300",
+    icon: "text-amber-500 dark:text-amber-400",
   },
   error: {
-    container: "bg-red-50 border-red-200 text-red-800",
-    icon: "text-red-500",
+    container: "bg-red-50 border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-800 dark:text-red-300",
+    icon: "text-red-500 dark:text-red-400",
   },
   info: {
-    container: "bg-sky-50 border-sky-200 text-sky-800",
-    icon: "text-sky-500",
+    container: "bg-sky-50 border-sky-200 text-sky-800 dark:bg-sky-900/20 dark:border-sky-800 dark:text-sky-300",
+    icon: "text-sky-500 dark:text-sky-400",
   },
 }
 

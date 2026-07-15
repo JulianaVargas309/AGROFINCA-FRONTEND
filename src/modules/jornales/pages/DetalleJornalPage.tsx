@@ -25,13 +25,13 @@ function DetalleJornalPage() {
       } />
       <Card title="Detalle del Jornal">
         <dl className="space-y-3">
-          <div><dt className="text-sm text-stone-500">Fecha</dt><dd>{formatDate(jornal.fecha)}</dd></div>
-          <div><dt className="text-sm text-stone-500">Trabajador</dt><dd>{jornal.trabajador?.nombre || "-"}</dd></div>
-          <div><dt className="text-sm text-stone-500">Horas</dt><dd>{jornal.horas}</dd></div>
-          <div><dt className="text-sm text-stone-500">Valor por Hora</dt><dd>{formatCurrency(jornal.valorHora)}</dd></div>
-          <div><dt className="text-sm text-stone-500">Total</dt><dd className="font-bold text-lg">{formatCurrency(jornal.total)}</dd></div>
-          <div><dt className="text-sm text-stone-500">Lote</dt><dd>{jornal.lote?.nombre || "-"}</dd></div>
-          <div><dt className="text-sm text-stone-500">Descripción</dt><dd>{jornal.descripcion || "-"}</dd></div>
+          <div><dt className="text-sm text-stone-500 dark:text-stone-400">Fecha</dt><dd className="dark:text-stone-100">{formatDate(jornal.fecha)}</dd></div>
+          <div><dt className="text-sm text-stone-500 dark:text-stone-400">Trabajador</dt><dd className="dark:text-stone-100">{jornal.trabajador?.nombre || "-"}</dd></div>
+          <div><dt className="text-sm text-stone-500 dark:text-stone-400">Horas</dt><dd className="dark:text-stone-100">{jornal.horas}</dd></div>
+          <div><dt className="text-sm text-stone-500 dark:text-stone-400">Valor por Hora</dt><dd className="dark:text-stone-100">{formatCurrency(jornal.valorHora)}</dd></div>
+          <div><dt className="text-sm text-stone-500 dark:text-stone-400">Total</dt><dd className="dark:text-stone-100">{formatCurrency(jornal.total)}</dd></div>
+          <div><dt className="text-sm text-stone-500 dark:text-stone-400">Lote</dt><dd className="dark:text-stone-100">{jornal.lote?.nombre || "-"}</dd></div>
+          <div><dt className="text-sm text-stone-500 dark:text-stone-400">Descripción</dt><dd className="dark:text-stone-100">{jornal.descripcion || "-"}</dd></div>
         </dl>
       </Card>
     </div>

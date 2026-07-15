@@ -20,7 +20,7 @@ function Card({ padding = "md", shadow = true, className, children, ...props }: 
   return (
     <div
       className={cn(
-        "rounded-xl border border-stone-200 bg-white",
+        "rounded-xl border border-stone-200 bg-white text-stone-900 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-100",
         paddingClasses[padding],
         shadow && "shadow-sm",
         className,

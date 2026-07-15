@@ -13,6 +13,7 @@ import { useNotification } from "@/hooks/useNotification"
 import { ROUTES } from "@/constants/routes"
 import { formatDate } from "@/utils/formatDate"
 import type { UpdateFincaFormData } from "../schemas/finca.schema"
+import { BackButton } from "@/components/shared/BackButton"
 import { MapPin, Ruler, Calendar, Edit, Trash2, ArrowLeft } from "lucide-react"
 import { useState } from "react"
 
@@ -83,6 +84,7 @@ function DetalleFincaPage() {
         description={`Finca registrada el ${formatDate(finca.createdAt)}`}
         actions={
           <div className="flex gap-2">
+            <BackButton to="/app/fincas" />
             <Button variant="outline" onClick={editModal.open}>
               <Edit size={16} />
               Editar
@@ -100,24 +102,24 @@ function DetalleFincaPage() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {finca.ubicacion && (
           <Card>
-            <div className="flex items-center gap-2 text-stone-500 mb-1">
+            <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400">
               <MapPin size={16} />
               <span className="text-xs font-medium">Ubicación</span>
             </div>
-            <p className="text-sm text-stone-900">{finca.ubicacion}</p>
+            <p className="text-sm text-stone-900 dark:text-stone-100">{finca.ubicacion}</p>
           </Card>
         )}
         {finca.hectareas && (
           <Card>
-            <div className="flex items-center gap-2 text-stone-500 mb-1">
+            <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400">
               <Ruler size={16} />
               <span className="text-xs font-medium">Hectáreas</span>
             </div>
-            <p className="text-lg font-bold text-stone-900">{finca.hectareas} ha</p>
+            <p className="text-lg font-bold text-stone-900 dark:text-stone-100">{finca.hectareas} ha</p>
           </Card>
         )}
         <Card>
-          <div className="flex items-center gap-2 text-stone-500 mb-1">
+          <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400">
             <Calendar size={16} />
             <span className="text-xs font-medium">Estado</span>
           </div>
@@ -129,8 +131,8 @@ function DetalleFincaPage() {
 
       {finca.descripcion && (
         <Card>
-          <h3 className="text-sm font-semibold text-stone-700 mb-2">Descripción</h3>
-          <p className="text-sm text-stone-600 whitespace-pre-wrap">{finca.descripcion}</p>
+          <h3 className="text-sm font-semibold text-stone-700 mb-2 dark:text-stone-200">Descripción</h3>
+          <p className="text-sm text-stone-600 whitespace-pre-wrap dark:text-stone-300">{finca.descripcion}</p>
         </Card>
       )}
 
@@ -139,8 +141,8 @@ function DetalleFincaPage() {
         {editModal.isOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center">
             <div className="fixed inset-0 bg-black/50" onClick={editModal.close} />
-            <div className="relative z-10 mx-4 w-full max-w-lg rounded-xl bg-white p-6 shadow-xl max-h-[90vh] overflow-auto">
-              <h2 className="text-lg font-semibold text-stone-900 mb-4">Editar Finca</h2>
+            <div className="relative z-10 mx-4 w-full max-w-lg rounded-xl bg-white p-6 shadow-xl max-h-[90vh] overflow-auto dark:bg-stone-900">
+              <h2 className="text-lg font-semibold text-stone-900 mb-4 dark:text-stone-100">Editar Finca</h2>
               <FincaForm
                 mode="edit"
                 defaultValues={finca}

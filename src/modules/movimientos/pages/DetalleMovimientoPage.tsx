@@ -25,12 +25,12 @@ function DetalleMovimientoPage() {
       } />
       <Card title="Detalle del Movimiento">
         <dl className="space-y-3">
-          <div><dt className="text-sm text-stone-500">Tipo</dt><dd><Badge color={movimiento.tipo === "ENTRADA" ? "success" : "error"}>{movimiento.tipo}</Badge></dd></div>
-          <div><dt className="text-sm text-stone-500">Producto</dt><dd>{movimiento.producto?.nombre || "-"}</dd></div>
-          <div><dt className="text-sm text-stone-500">Cantidad</dt><dd>{movimiento.cantidad} {movimiento.unidadMedida}</dd></div>
-          <div><dt className="text-sm text-stone-500">Fecha</dt><dd>{formatDate(movimiento.fecha)}</dd></div>
-          <div><dt className="text-sm text-stone-500">Lote</dt><dd>{movimiento.lote?.nombre || "-"}</dd></div>
-          <div><dt className="text-sm text-stone-500">Descripción</dt><dd>{movimiento.descripcion || "-"}</dd></div>
+          <div><dt className="text-sm text-stone-500 dark:text-stone-400">Tipo</dt><dd><Badge color={movimiento.tipo === "ENTRADA" ? "success" : "error"}>{movimiento.tipo}</Badge></dd></div>
+          <div><dt className="text-sm text-stone-500 dark:text-stone-400">Producto</dt><dd className="dark:text-stone-100">{movimiento.producto?.nombre || "-"}</dd></div>
+          <div><dt className="text-sm text-stone-500 dark:text-stone-400">Cantidad</dt><dd className="dark:text-stone-100">{movimiento.cantidad} {movimiento.unidadMedida}</dd></div>
+          <div><dt className="text-sm text-stone-500 dark:text-stone-400">Fecha</dt><dd className="dark:text-stone-100">{formatDate(movimiento.fecha)}</dd></div>
+          <div><dt className="text-sm text-stone-500 dark:text-stone-400">Lote</dt><dd className="dark:text-stone-100">{movimiento.lote?.nombre || "-"}</dd></div>
+          <div><dt className="text-sm text-stone-500 dark:text-stone-400">Descripción</dt><dd className="dark:text-stone-100">{movimiento.descripcion || "-"}</dd></div>
         </dl>
       </Card>
     </div>

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
+import { BackButton } from "@/components/shared/BackButton"
 import { LoteForm } from "../components/LoteForm"
 import { loteService } from "../services/lote.service"
 import { ROUTES } from "@/constants/routes"
@@ -31,7 +32,7 @@ function NuevoLotePage() {
   return (
     <div className="space-y-6">
       <Breadcrumb />
-      <PageHeader title="Nuevo Lote" description="Registra un nuevo lote en el sistema" />
+      <PageHeader title="Nuevo Lote" description="Registra un nuevo lote en el sistema" actions={<BackButton to="/app/lotes" />} />
       <Card className="max-w-lg">
         <LoteForm
           mode="create"

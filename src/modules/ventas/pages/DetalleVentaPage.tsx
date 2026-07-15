@@ -26,17 +26,17 @@ function DetalleVentaPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card title="Información de la Venta">
           <dl className="space-y-3">
-            <div><dt className="text-sm text-stone-500">Fecha</dt><dd>{formatDate(venta.fecha)}</dd></div>
-            <div><dt className="text-sm text-stone-500">Cliente</dt><dd>{venta.cliente}</dd></div>
-            <div><dt className="text-sm text-stone-500">Producto</dt><dd>{venta.tipoProducto}</dd></div>
-            <div><dt className="text-sm text-stone-500">Descripción</dt><dd>{venta.descripcion || "-"}</dd></div>
+            <div><dt className="text-sm text-stone-500 dark:text-stone-400">Fecha</dt><dd className="dark:text-stone-100">{formatDate(venta.fecha)}</dd></div>
+            <div><dt className="text-sm text-stone-500 dark:text-stone-400">Cliente</dt><dd className="dark:text-stone-100">{venta.cliente}</dd></div>
+            <div><dt className="text-sm text-stone-500 dark:text-stone-400">Producto</dt><dd className="dark:text-stone-100">{venta.tipoProducto}</dd></div>
+            <div><dt className="text-sm text-stone-500 dark:text-stone-400">Descripción</dt><dd className="dark:text-stone-100">{venta.descripcion || "-"}</dd></div>
           </dl>
         </Card>
         <Card title="Detalle Económico">
           <dl className="space-y-3">
-            <div><dt className="text-sm text-stone-500">Cantidad</dt><dd>{venta.cantidad} {venta.unidadMedida}</dd></div>
-            <div><dt className="text-sm text-stone-500">Precio Unitario</dt><dd>{formatCurrency(venta.precioUnitario)}</dd></div>
-            <div><dt className="text-sm text-stone-500">Total</dt><dd className="font-bold text-xl text-emerald-700">{formatCurrency(venta.total)}</dd></div>
+            <div><dt className="text-sm text-stone-500 dark:text-stone-400">Cantidad</dt><dd className="dark:text-stone-100">{venta.cantidad} {venta.unidadMedida}</dd></div>
+            <div><dt className="text-sm text-stone-500 dark:text-stone-400">Precio Unitario</dt><dd className="dark:text-stone-100">{formatCurrency(venta.precioUnitario)}</dd></div>
+            <div><dt className="text-sm text-stone-500 dark:text-stone-400">Total</dt><dd className="text-emerald-700 dark:text-emerald-300">{formatCurrency(venta.total)}</dd></div>
           </dl>
         </Card>
       </div>

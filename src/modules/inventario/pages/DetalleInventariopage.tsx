@@ -17,6 +17,7 @@ import { formatDate } from "@/utils/formatDate"
 import { TIPO_MOVIMIENTO_LABELS } from "@/constants/inventario"
 import type { UpdateProductoFormData } from "../schemas/inventario.schema"
 import type { CreateMovimientoFormData } from "../schemas/inventario.schema"
+import { BackButton } from "@/components/shared/BackButton"
 import { ArrowLeft, Package, AlertTriangle, ArrowDown, ArrowUp, Edit, Trash2, DollarSign } from "lucide-react"
 import { useState } from "react"
 
@@ -82,6 +83,7 @@ function DetalleInventariopage() {
         description={producto.descripcion ?? `Categoría: ${producto.categoria || "Sin categoría"}`}
         actions={
           <div className="flex gap-2">
+            <BackButton to="/app/inventario" />
             <Button variant="outline" onClick={editModal.open}><Edit size={16} />Editar</Button>
             <Button variant="danger" onClick={deleteModal.open}><Trash2 size={16} />Eliminar</Button>
           </div>
@@ -93,26 +95,26 @@ function DetalleInventariopage() {
       {/* Stats */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card>
-          <div className="flex items-center gap-2 text-stone-500 mb-1"><Package size={16} /><span className="text-xs font-medium">Stock Actual</span></div>
+          <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400"><Package size={16} /><span className="text-xs font-medium">Stock Actual</span></div>
           <div className="flex items-center gap-2">
-            <p className={`text-lg font-bold ${stockBajo ? "text-red-600" : "text-stone-900"}`}>{producto.stockActual}</p>
-            <span className="text-xs text-stone-400">{producto.unidadMedida}</span>
-            {stockBajo && <AlertTriangle size={18} className="text-red-500" />}
+            <p className={`text-lg font-bold ${stockBajo ? "text-red-600 dark:text-red-400" : "text-stone-900 dark:text-stone-100"}`}>{producto.stockActual}</p>
+            <span className="text-xs text-stone-400 dark:text-stone-500">{producto.unidadMedida}</span>
+            {stockBajo && <AlertTriangle size={18} className="text-red-500 dark:text-red-400" />}
           </div>
         </Card>
         <Card>
-          <div className="flex items-center gap-2 text-stone-500 mb-1"><AlertTriangle size={16} /><span className="text-xs font-medium">Stock Mínimo</span></div>
-          <p className="text-lg font-bold text-stone-900">{producto.stockMinimo} {producto.unidadMedida}</p>
+          <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400"><AlertTriangle size={16} /><span className="text-xs font-medium">Stock Mínimo</span></div>
+          <p className="text-lg font-bold text-stone-900 dark:text-stone-100">{producto.stockMinimo} {producto.unidadMedida}</p>
         </Card>
         {producto.precioUnitario && (
           <Card>
-            <div className="flex items-center gap-2 text-stone-500 mb-1"><DollarSign size={16} /><span className="text-xs font-medium">Precio Unitario</span></div>
-            <p className="text-lg font-bold text-stone-900">{formatCurrency(producto.precioUnitario)}</p>
+            <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400"><DollarSign size={16} /><span className="text-xs font-medium">Precio Unitario</span></div>
+            <p className="text-lg font-bold text-stone-900 dark:text-stone-100">{formatCurrency(producto.precioUnitario)}</p>
           </Card>
         )}
         <Card>
-          <div className="flex items-center gap-2 text-stone-500 mb-1"><Badge color={producto.activo ? "success" : "error"}>{producto.activo ? "Activo" : "Inactivo"}</Badge></div>
-          <p className="text-lg font-bold text-stone-900">{producto.categoria || "Sin categoría"}</p>
+          <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400"><Badge color={producto.activo ? "success" : "error"}>{producto.activo ? "Activo" : "Inactivo"}</Badge></div>
+          <p className="text-lg font-bold text-stone-900 dark:text-stone-100">{producto.categoria || "Sin categoría"}</p>
         </Card>
       </div>
 
@@ -124,34 +126,34 @@ function DetalleInventariopage() {
 
       {/* Registrar Movimiento */}
       <Card>
-        <h3 className="text-sm font-semibold text-stone-700 mb-3">Registrar Movimiento</h3>
+        <h3 className="text-sm font-semibold text-stone-700 mb-3 dark:text-stone-200">Registrar Movimiento</h3>
         {movError && <div className="mb-3"><Alert severity="error">{movError}</Alert></div>}
         <MovimientoForm productoId={producto.id} onSubmit={handleMovimiento} loading={saving} />
       </Card>
 
       {/* Historial de Movimientos */}
       <Card>
-        <h3 className="text-sm font-semibold text-stone-700 mb-4">Historial de Movimientos</h3>
+        <h3 className="text-sm font-semibold text-stone-700 mb-4 dark:text-stone-200">Historial de Movimientos</h3>
         {movimientos.length === 0 ? (
           <div className="py-6 text-center">
-            <Package size={28} className="mx-auto text-stone-300" />
-            <p className="mt-2 text-sm text-stone-500">Sin movimientos registrados.</p>
+            <Package size={28} className="mx-auto text-stone-300 dark:text-stone-600" />
+            <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">Sin movimientos registrados.</p>
           </div>
         ) : (
-          <div className="divide-y divide-stone-100 -mx-5">
+          <div className="divide-y divide-stone-100 dark:divide-stone-800 -mx-5">
             {movimientos.map((m) => (
               <div key={m.id} className="flex items-center justify-between px-5 py-3">
                 <div className="flex items-center gap-3">
-                  <span className={`flex h-8 w-8 items-center justify-center rounded-full ${m.tipo === "entrada" ? "bg-emerald-100 text-emerald-600" : "bg-red-100 text-red-600"}`}>
+                  <span className={`flex h-8 w-8 items-center justify-center rounded-full ${m.tipo === "entrada" ? "bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400" : "bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400"}`}>
                     {m.tipo === "entrada" ? <ArrowDown size={14} /> : <ArrowUp size={14} />}
                   </span>
                   <div>
-                    <p className="text-sm font-medium text-stone-700">{TIPO_MOVIMIENTO_LABELS[m.tipo.toUpperCase() as keyof typeof TIPO_MOVIMIENTO_LABELS] || m.tipo}</p>
-                    {m.motivo && <p className="text-xs text-stone-500">{m.motivo}</p>}
-                    <p className="text-xs text-stone-400">{formatDate(m.fecha)} · {m.user?.nombre}</p>
+                    <p className="text-sm font-medium text-stone-700 dark:text-stone-200">{TIPO_MOVIMIENTO_LABELS[m.tipo.toUpperCase() as keyof typeof TIPO_MOVIMIENTO_LABELS] || m.tipo}</p>
+                    {m.motivo && <p className="text-xs text-stone-500 dark:text-stone-400">{m.motivo}</p>}
+                    <p className="text-xs text-stone-400 dark:text-stone-500">{formatDate(m.fecha)} · {m.user?.nombre}</p>
                   </div>
                 </div>
-                <span className={`text-sm font-bold ${m.tipo === "entrada" ? "text-emerald-600" : "text-red-600"}`}>
+                <span className={`text-sm font-bold ${m.tipo === "entrada" ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}`}>
                   {m.tipo === "entrada" ? "+" : "-"}{m.cantidad}
                 </span>
               </div>
@@ -164,8 +166,8 @@ function DetalleInventariopage() {
       {editModal.isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="fixed inset-0 bg-black/50" onClick={editModal.close} />
-          <div className="relative z-10 mx-4 w-full max-w-lg rounded-xl bg-white p-6 shadow-xl max-h-[90vh] overflow-auto">
-            <h2 className="text-lg font-semibold text-stone-900 mb-4">Editar Producto</h2>
+          <div className="relative z-10 mx-4 w-full max-w-lg rounded-xl bg-white p-6 shadow-xl max-h-[90vh] overflow-auto dark:bg-stone-900">
+            <h2 className="text-lg font-semibold text-stone-900 mb-4 dark:text-stone-100">Editar Producto</h2>
             <InventarioForm mode="edit" defaultValues={producto} onSubmit={handleUpdate} loading={saving} error={editError} onClearError={() => setEditError(null)} submitLabel="Guardar Cambios" />
           </div>
         </div>

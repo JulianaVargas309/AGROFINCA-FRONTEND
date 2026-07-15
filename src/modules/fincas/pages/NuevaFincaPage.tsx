@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
+import { BackButton } from "@/components/shared/BackButton"
 import { FincaForm } from "../components/FincaForm"
 import { fincaService } from "../services/finca.service"
 import { ROUTES } from "@/constants/routes"
@@ -31,7 +32,7 @@ function NuevaFincaPage() {
   return (
     <div className="space-y-6">
       <Breadcrumb />
-      <PageHeader title="Nueva Finca" description="Registra una nueva finca en el sistema" />
+      <PageHeader title="Nueva Finca" description="Registra una nueva finca en el sistema" actions={<BackButton to="/app/fincas" />} />
       <Card className="max-w-lg">
         <FincaForm
           mode="create"

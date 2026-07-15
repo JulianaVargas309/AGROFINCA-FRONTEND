@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
+import { BackButton } from "@/components/shared/BackButton"
 import { BitacoraForm } from "../components/BitacoraForm"
 import { bitacoraService } from "../services/bitacora.service"
 import { ROUTES } from "@/constants/routes"
@@ -31,7 +32,7 @@ function NuevaBitacoraPage() {
   return (
     <div className="space-y-6">
       <Breadcrumb />
-      <PageHeader title="Nueva Actividad" description="Registra una actividad en la bitácora" />
+      <PageHeader title="Nueva Actividad" description="Registra una actividad en la bitácora" actions={<BackButton to="/app/bitacora" />} />
       <Card className="max-w-lg">
         <BitacoraForm mode="create" onSubmit={handleSubmit} loading={loading} error={error} onClearError={() => setError(null)} submitLabel="Registrar Actividad" />
       </Card>
