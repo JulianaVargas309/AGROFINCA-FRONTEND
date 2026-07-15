@@ -28,9 +28,10 @@ export function usePerfil(): UsePerfilReturn {
   }, [])
 
   const loadProfile = useCallback(async () => {
+    if (!user?.id) return
     setLoadingProfile(true)
     try {
-      const raw: Record<string, unknown> = await perfilService.getProfile() as unknown as Record<string, unknown>
+      const raw: Record<string, unknown> = await perfilService.getProfile(user.id) as unknown as Record<string, unknown>
       console.log("[Perfil] API response:", raw)
       const mapped: PerfilData = {
         id: Number(raw.id) || 0,
@@ -51,7 +52,7 @@ export function usePerfil(): UsePerfilReturn {
     } finally {
       setLoadingProfile(false)
     }
-  }, [])
+  }, [user?.id])
 
   useEffect(() => {
     loadProfile()
