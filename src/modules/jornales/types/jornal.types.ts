@@ -1,12 +1,15 @@
 export interface Jornal {
   id: number
   fecha: string
-  horas: number
-  valorHora: number
+  tipoPago: "DIA" | "KILO"
+  valorDia?: number | null
+  cantidadDias?: number | null
+  cantidadKg?: number | null
+  valorKilo?: number | null
   total: number
-  descripcion?: string
+  descripcion?: string | null
   trabajadorId: number
-  loteId?: number
+  loteId?: number | null
   activo: boolean
   createdAt: string
   updatedAt: string
@@ -16,8 +19,12 @@ export interface Jornal {
 
 export interface CreateJornalInput {
   fecha: string
-  horas: number
-  valorHora: number
+  tipoPago: "DIA" | "KILO"
+  valorDia?: number
+  cantidadDias?: number
+  cantidadKg?: number
+  valorKilo?: number
+  total: number
   descripcion?: string
   trabajadorId: number
   loteId?: number
@@ -25,8 +32,12 @@ export interface CreateJornalInput {
 
 export interface UpdateJornalInput {
   fecha?: string
-  horas?: number
-  valorHora?: number
+  tipoPago?: "DIA" | "KILO"
+  valorDia?: number
+  cantidadDias?: number
+  cantidadKg?: number
+  valorKilo?: number
+  total?: number
   descripcion?: string
   trabajadorId?: number
   loteId?: number

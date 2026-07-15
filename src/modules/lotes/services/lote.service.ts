@@ -23,9 +23,8 @@ interface Cultivo {
 interface Jornal {
   id: number
   fecha: string
-  horas?: number
-  tarea?: string
-  montoPagado?: number
+  tipoPago: string
+  total: number
   trabajador: { id: number; nombre: string }
   lote: { id: number; nombre: string }
 }
@@ -89,7 +88,7 @@ export const loteService = {
     if (!lote) throw new Error("Lote no encontrado")
 
     const costoBitacora = bitacoras.reduce((sum, b) => sum + (b.costo || 0), 0)
-    const costoJornales = jornales.reduce((sum, j) => sum + (j.montoPagado || 0), 0)
+    const costoJornales = jornales.reduce((sum, j) => sum + (j.total || 0), 0)
 
     return {
       lote,

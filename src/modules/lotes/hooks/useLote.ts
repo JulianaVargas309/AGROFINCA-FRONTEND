@@ -23,8 +23,8 @@ interface BitacoraEntry {
 interface JornalEntry {
   id: number
   fecha: string
-  tarea?: string
-  montoPagado?: number
+  tipoPago: string
+  total: number
   trabajador: { id: number; nombre: string }
 }
 

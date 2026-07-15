@@ -18,7 +18,7 @@ interface EventoCalendario {
 
 interface Jornal {
   id: number
-  montoPagado?: number
+  total: number
   trabajador?: { id: number; nombre: string }
 }
 
@@ -87,7 +87,7 @@ export const autoNotificacionService = {
   async verificarJornalesPendientes(): Promise<void> {
     try {
       const jornales = await apiGet<Jornal[]>(API_ENDPOINTS.JORNALES).then(toArray).catch(() => [] as Jornal[])
-      const pendientes = jornales.filter((j) => !j.montoPagado || j.montoPagado === 0)
+      const pendientes = jornales.filter((j) => !j.total || j.total === 0)
       if (pendientes.length > 0) {
         await notificacionService.create({
           titulo: `Jornales pendientes de pago`,

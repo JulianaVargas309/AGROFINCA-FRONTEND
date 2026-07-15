@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Button } from "@/components/ui/Button"
 import { Card } from "@/components/ui/Card"
@@ -18,6 +18,22 @@ import { formatCurrency } from "@/utils/formatCurrency"
 import { Plus, Edit, Trash2 } from "lucide-react"
 import { useState } from "react"
 
+const tipoPagoLabels: Record<string, string> = {
+  DIA: "Por Día",
+  KILO: "Por Kilo",
+}
+
+function renderTipo(item: Jornal) {
+  if (item.tipoPago === "DIA") {
+    const dias = item.cantidadDias ?? 1
+    return `${tipoPagoLabels[item.tipoPago]} · $${item.valorDia?.toLocaleString("es-CO") ?? 0}/día x ${dias}`
+  }
+  if (item.tipoPago === "KILO") {
+    return `${tipoPagoLabels[item.tipoPago]} · ${item.cantidadKg ?? 0} kg x $${item.valorKilo?.toLocaleString("es-CO") ?? 0}`
+  }
+  return "-"
+}
+
 const columns: Column<Jornal>[] = [
   { key: "fecha", header: "Fecha", render: (item) => formatDate(item.fecha) },
   {
@@ -25,8 +41,8 @@ const columns: Column<Jornal>[] = [
     header: "Trabajador",
     render: (item) => item.trabajador?.nombre || "-",
   },
-  { key: "horas", header: "Horas" },
-  { key: "valorHora", header: "Valor Hora", render: (item) => formatCurrency(item.valorHora) },
+  { key: "tipoPago", header: "Tipo", render: (item) => tipoPagoLabels[item.tipoPago] || item.tipoPago },
+  { key: "detalle", header: "Detalle", render: renderTipo },
   { key: "total", header: "Total", render: (item) => <span className="font-medium">{formatCurrency(item.total)}</span> },
   { key: "lote", header: "Lote", render: (item) => item.lote?.nombre || "-" },
   {
@@ -67,13 +83,16 @@ function Actions({ id }: { id: number }) {
 }
 
 function JornalesPage() {
+  const navigate = useNavigate()
   const { jornales, loading, error, pagination, search, setSearch, setPage } = useJornales()
 
   return (
     <div className="space-y-6">
       <Breadcrumb />
       <PageHeader title="Jornales" description="Registro de jornales y salarios" actions={
-        <Link to="/app/jornales/nuevo"><Button><Plus size={16} />Nuevo Jornal</Button></Link>
+        <div className="flex gap-2">
+          <Button onClick={() => navigate("/app/jornales/nuevo")}><Plus size={16} />Nuevo Jornal</Button>
+        </div>
       } />
       {error && <Alert severity="error">{error}</Alert>}
       <div className="flex-1 max-w-sm"><SearchBar value={search} onChange={setSearch} placeholder="Buscar por trabajador..." /></div>

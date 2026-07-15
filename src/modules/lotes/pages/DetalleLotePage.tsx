@@ -320,10 +320,10 @@ function DetalleLotePage() {
                   <div key={j.id} className="flex items-center justify-between px-5 py-3">
                     <div>
                       <p className="text-sm text-stone-700 dark:text-stone-200">{j.trabajador.nombre}</p>
-                      <p className="text-xs text-stone-500 dark:text-stone-400">{j.tarea || "Sin tarea"} · {formatDate(j.fecha)}</p>
+                      <p className="text-xs text-stone-500 dark:text-stone-400">{j.tipoPago === "KILO" ? "Destajo" : "Día"} · {formatDate(j.fecha)}</p>
                     </div>
-                    {j.montoPagado ? (
-                      <span className="text-sm font-medium text-stone-700 dark:text-stone-200">{formatCurrency(j.montoPagado)}</span>
+                    {j.total ? (
+                      <span className="text-sm font-medium text-stone-700 dark:text-stone-200">{formatCurrency(j.total)}</span>
                     ) : null}
                   </div>
                 ))}

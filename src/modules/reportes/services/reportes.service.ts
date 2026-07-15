@@ -16,7 +16,7 @@ interface Gasto { id: number; monto: number; fecha: string; categoria?: string; 
 interface Venta { id: number; total: number; fecha: string; estado: string }
 interface Cultivo { id: number; nombre: string; tipo: string; estado: string; fechaSiembra: string; rendimientoEstimado?: number; lote?: { id: number; nombre: string; finca?: { id: number; nombre: string } } }
 interface BitacoraEntry { id: number; actividad: string; descripcion: string; fecha: string; costo: number; lote?: { id: number; nombre: string }; cultivo?: { id: number; nombre: string }; user?: { id: number; nombre: string } }
-interface JornalEntry { id: number; montoPagado?: number; lote?: { id: number; nombre: string } }
+interface JornalEntry { id: number; total: number; lote?: { id: number; nombre: string } }
 
 export const reportesService = {
   async generateReport(type: ReportType): Promise<ReporteInventario | ReporteFinanciero | ReporteProduccion | ReporteCostos | ReporteBitacora> {
@@ -140,7 +140,7 @@ async function generateCostos(): Promise<ReporteCostos> {
         apiGet<JornalEntry[]>(`${API_ENDPOINTS.JORNALES}?loteId=${l.id}`).catch(() => [] as JornalEntry[]),
       ])
       const costoBitacora = bitacoras.reduce((s, b) => s + (b.costo || 0), 0)
-      const costoJornales = jornales.reduce((s, j) => s + (j.montoPagado || 0), 0)
+      const costoJornales = jornales.reduce((s, j) => s + (j.total || 0), 0)
       const finca = fincas.find((f) => f.id === l.fincaId)
       return {
         lote: l.nombre,
