@@ -221,18 +221,6 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
               </div>
             )
           })}
-
-          {/* Mi Perfil */}
-          <div className="mt-auto pt-4 border-t border-stone-200 dark:border-stone-800">
-            <Link
-              to="/app/perfil"
-              onClick={onClose}
-              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 hover:text-stone-900 dark:hover:text-stone-200 transition-colors"
-            >
-              <UserCircle size={18} />
-              <span>Mi Perfil</span>
-            </Link>
-          </div>
         </nav>
       </aside>
     </>
