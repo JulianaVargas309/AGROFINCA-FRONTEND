@@ -27,7 +27,7 @@ function UserForm({ defaultValues, onSubmit, isEdit }: UserFormProps) {
   const [error, setError] = useState<string | null>(null)
   const schema = isEdit ? updateUserSchema : createUserSchema
 
-  const { register, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm<CreateUserFormData | UpdateUserFormData>({
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<CreateUserFormData | UpdateUserFormData>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(schema) as any,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,7 +54,7 @@ function UserForm({ defaultValues, onSubmit, isEdit }: UserFormProps) {
           <Input label="Apellido" {...register("apellido")} error={(errors as any).apellido?.message} />
         </div>
         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        <Input label="Documento" icon={<IdCard size={18} />} {...register("documento", { onChange: (e) => { if (!isEdit && e.target.value) { setValue("password" as any, e.target.value as any) } } })} error={(errors as any).documento?.message} disabled={isEdit} helperText="Se usa como usuario para iniciar sesión. La contraseña por defecto es el mismo documento." />
+        <Input label="Documento" icon={<IdCard size={18} />} {...register("documento")} error={(errors as any).documento?.message} disabled={isEdit} helperText="Se usa como usuario para iniciar sesión" />
         <div className="grid gap-4 sm:grid-cols-2">
           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           <Input label="Correo" type="email" icon={<Mail size={18} />} {...register("correo")} error={(errors as any).correo?.message} />
@@ -62,7 +62,7 @@ function UserForm({ defaultValues, onSubmit, isEdit }: UserFormProps) {
           <Input label="Teléfono" icon={<Phone size={18} />} {...register("telefono")} error={(errors as any).telefono?.message} />
         </div>
         {!isEdit && (
-          <Input label="Contraseña" type="password" icon={<Lock size={18} />} {...register("password")} error={(errors as any).password?.message} helperText="Por defecto se asigna el número de documento. Puedes cambiarla después." />
+          <Input label="Contraseña" type="password" icon={<Lock size={18} />} autoComplete="new-password" {...register("password")} error={(errors as any).password?.message} helperText="Define una contraseña para el usuario" />
         )}
         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         <Select label="Rol" options={rolOptions} placeholder="Seleccione..." {...register("rol")} error={(errors as any).rol?.message} />
