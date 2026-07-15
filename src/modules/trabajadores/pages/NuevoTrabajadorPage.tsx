@@ -12,7 +12,8 @@ import { createTrabajadorSchema, type CreateTrabajadorFormData } from "../schema
 import { trabajadorService } from "../services/trabajador.service"
 import { useNotification } from "@/hooks/useNotification"
 import { useState } from "react"
-import { ArrowLeft, Save } from "lucide-react"
+import { BackButton } from "@/components/shared/BackButton"
+import { Save } from "lucide-react"
 import type { Option } from "@/types"
 
 const cargoOptions: Option[] = [
@@ -45,9 +46,7 @@ function NuevoTrabajadorPage() {
   return (
     <div className="space-y-6">
       <Breadcrumb />
-      <PageHeader title="Nuevo Trabajador" description="Registra un nuevo trabajador" actions={
-        <Link to="/app/trabajadores"><Button variant="outline"><ArrowLeft size={16} />Volver</Button></Link>
-      } />
+      <PageHeader title="Nuevo Trabajador" description="Registra un nuevo trabajador" actions={<BackButton to="/app/trabajadores" />} />
       {error && <Alert severity="error">{error}</Alert>}
       <Card>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -60,20 +59,12 @@ function NuevoTrabajadorPage() {
             <Input label="Teléfono" {...register("telefono")} error={errors.telefono?.message} />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Input label="Correo" type="email" {...register("correo")} error={errors.correo?.message} />
             <Input label="Dirección" {...register("direccion")} error={errors.direccion?.message} />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Input label="Fecha de Nacimiento" type="date" {...register("fechaNacimiento")} error={errors.fechaNacimiento?.message} />
             <Input label="Fecha de Ingreso" type="date" {...register("fechaIngreso")} error={errors.fechaIngreso?.message} />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <Select label="Cargo" options={cargoOptions} placeholder="Seleccione..." {...register("cargo")} error={errors.cargo?.message} />
             <Input label="Salario" type="number" {...register("salario")} error={errors.salario?.message} />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Input label="EPS" {...register("eps")} error={errors.eps?.message} />
-            <Input label="ARL" {...register("arl")} error={errors.arl?.message} />
           </div>
           <Textarea label="Observaciones" {...register("observaciones")} error={errors.observaciones?.message} />
           <div className="flex justify-end gap-3 pt-4">

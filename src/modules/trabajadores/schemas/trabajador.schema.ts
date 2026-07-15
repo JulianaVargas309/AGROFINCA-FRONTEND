@@ -9,10 +9,6 @@ export const createTrabajadorSchema = z.object({
   direccion: z.string().max(300).optional().or(z.literal("")),
   cargo: z.string().min(1, "Seleccione un cargo"),
   fechaIngreso: z.string().min(1, "Seleccione una fecha"),
-  correo: z.string().email("Correo inválido").optional().or(z.literal("")),
-  fechaNacimiento: z.string().optional().or(z.literal("")),
-  eps: z.string().max(100).optional().or(z.literal("")),
-  arl: z.string().max(100).optional().or(z.literal("")),
   salario: z.coerce.number().min(0).optional(),
   observaciones: z.string().max(500).optional().or(z.literal("")),
 })
@@ -26,10 +22,6 @@ export const updateTrabajadorSchema = z.object({
   cargo: z.string().optional(),
   fechaIngreso: z.string().optional(),
   activo: z.boolean().optional(),
-  correo: z.string().email("Correo inválido").optional().or(z.literal("")),
-  fechaNacimiento: z.string().optional().or(z.literal("")),
-  eps: z.string().max(100).optional().or(z.literal("")),
-  arl: z.string().max(100).optional().or(z.literal("")),
   salario: z.coerce.number().min(0).optional(),
   observaciones: z.string().max(500).optional().or(z.literal("")),
 })

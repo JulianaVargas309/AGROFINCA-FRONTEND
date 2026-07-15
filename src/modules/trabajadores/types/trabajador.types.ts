@@ -10,10 +10,6 @@ export interface Trabajador {
   activo: boolean
   createdAt: string
   updatedAt: string
-  correo?: string | null
-  fechaNacimiento?: string | null
-  eps?: string | null
-  arl?: string | null
   salario?: number | null
   observaciones?: string | null
   foto?: string | null
@@ -27,10 +23,6 @@ export interface CreateTrabajadorInput {
   direccion?: string
   cargo: string
   fechaIngreso: string
-  correo?: string
-  fechaNacimiento?: string
-  eps?: string
-  arl?: string
   salario?: number
   observaciones?: string
 }
@@ -44,10 +36,6 @@ export interface UpdateTrabajadorInput {
   cargo?: string
   fechaIngreso?: string
   activo?: boolean
-  correo?: string
-  fechaNacimiento?: string
-  eps?: string
-  arl?: string
   salario?: number
   observaciones?: string
 }
