@@ -73,7 +73,7 @@ function PerfilPage() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Card>
               <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400"><User size={16} /><span className="text-xs font-medium">Usuario</span></div>
-              <p className="text-sm font-semibold text-stone-900 dark:text-stone-100">{profile.nombre ?? profile.documento}</p>
+              <p className="text-sm font-semibold text-stone-900 dark:text-stone-100">{profile.nombre || "-"}</p>
             </Card>
             <Card>
               <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400"><IdCard size={16} /><span className="text-xs font-medium">Documento</span></div>
