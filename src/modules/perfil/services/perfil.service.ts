@@ -1,25 +1,17 @@
 import { apiGet, apiPut } from "@/services/api"
 import { API_ENDPOINTS } from "@/constants/api"
-
-interface UserProfile {
-  id: number
-  nombre: string | null
-  documento: string
-  rol: string
-  activo: boolean
-  createdAt: string
-}
+import type { PerfilData } from "../types/perfil.types"
 
 export const perfilService = {
-  async getProfile(userId: number): Promise<UserProfile> {
-    return apiGet<UserProfile>(`${API_ENDPOINTS.USERS}/${userId}`)
+  async getProfile(userId: number): Promise<PerfilData> {
+    return apiGet<PerfilData>(`${API_ENDPOINTS.USERS}/${userId}`)
   },
 
-  async updateProfile(userId: number, data: { nombre?: string; documento?: string }): Promise<UserProfile> {
-    return apiPut<UserProfile>(`${API_ENDPOINTS.USERS}/${userId}`, data)
+  async updateProfile(userId: number, data: { nombre?: string; documento?: string }): Promise<PerfilData> {
+    return apiPut<PerfilData>(`${API_ENDPOINTS.USERS}/${userId}`, data)
   },
 
-  async changePassword(userId: number, newPassword: string): Promise<UserProfile> {
-    return apiPut<UserProfile>(`${API_ENDPOINTS.USERS}/${userId}`, { password: newPassword })
+  async changePassword(userId: number, newPassword: string): Promise<PerfilData> {
+    return apiPut<PerfilData>(`${API_ENDPOINTS.USERS}/${userId}`, { password: newPassword })
   },
 }

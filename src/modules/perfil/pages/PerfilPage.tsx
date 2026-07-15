@@ -4,22 +4,28 @@ import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import { Alert } from "@/components/ui/Alert"
+import { Spinner } from "@/components/ui/Spinner"
 import { Modal } from "@/components/ui/Modal"
 import { PerfilForm } from "../components/PerfilForm"
 import { useAuth } from "@/hooks/useAuth"
 import { ROLES } from "@/constants/roles"
 import { formatDate } from "@/utils/formatDate"
 import { usePerfil } from "../hooks/usePerfil"
-import type { PerfilData } from "../types/perfil.types"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { changePasswordSchema, type ChangePasswordInput } from "../schemas/perfil.schema"
 import { User, Shield, Calendar, IdCard, Mail, Phone, Lock, Edit3, Camera } from "lucide-react"
 import { useState } from "react"
 
+const rolBadgeColor: Record<string, "error" | "info" | "warning" | "default"> = {
+  ADMIN: "error",
+  FAMILIAR: "info",
+  TRABAJADOR: "warning",
+}
+
 function PerfilPage() {
   const { user } = useAuth()
-  const { saving, error, successMessage, changePassword, clearMessages } = usePerfil()
+  const { profile, loadingProfile, saving, error, successMessage, changePassword, clearMessages } = usePerfil()
   const [showEditModal, setShowEditModal] = useState(false)
   const [showPasswordModal, setShowPasswordModal] = useState(false)
 
@@ -60,52 +66,62 @@ function PerfilPage() {
       {error && <Alert severity="error" onClose={clearMessages}>{error}</Alert>}
       {successMessage && <Alert severity="success" onClose={clearMessages}>{successMessage}</Alert>}
 
-      {user && (
+      {loadingProfile ? (
+        <Spinner />
+      ) : profile ? (
         <>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Card>
-              <div className="flex items-center gap-2 text-stone-500 mb-1"><User size={16} /><span className="text-xs font-medium">Usuario</span></div>
-              <p className="text-sm font-semibold text-stone-900">{user.nombre ?? user.documento}</p>
+              <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400"><User size={16} /><span className="text-xs font-medium">Usuario</span></div>
+              <p className="text-sm font-semibold text-stone-900 dark:text-stone-100">{profile.nombre ?? profile.documento}</p>
             </Card>
             <Card>
-              <div className="flex items-center gap-2 text-stone-500 mb-1"><IdCard size={16} /><span className="text-xs font-medium">Documento</span></div>
-              <p className="text-sm font-semibold text-stone-900 truncate">{user.documento}</p>
+              <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400"><IdCard size={16} /><span className="text-xs font-medium">Documento</span></div>
+              <p className="text-sm font-semibold text-stone-900 dark:text-stone-100 truncate">{profile.documento}</p>
             </Card>
             <Card>
-              <div className="flex items-center gap-2 text-stone-500 mb-1"><Shield size={16} /><span className="text-xs font-medium">Rol</span></div>
-              <Badge color={user.rol === "ADMIN" ? "error" : user.rol === "FAMILIAR" ? "info" : "default"}>{ROLES[user.rol] || user.rol}</Badge>
+              <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400"><Shield size={16} /><span className="text-xs font-medium">Rol</span></div>
+              <Badge color={rolBadgeColor[profile.rol] ?? "default"}>{ROLES[profile.rol] || profile.rol}</Badge>
             </Card>
             <Card>
-              <div className="flex items-center gap-2 text-stone-500 mb-1"><Calendar size={16} /><span className="text-xs font-medium">Miembro desde</span></div>
-              <p className="text-sm text-stone-700">{user.createdAt ? formatDate(user.createdAt) : "-"}</p>
+              <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400"><Calendar size={16} /><span className="text-xs font-medium">Miembro desde</span></div>
+              <p className="text-sm text-stone-700 dark:text-stone-200">{profile.createdAt ? formatDate(profile.createdAt) : "-"}</p>
             </Card>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Card>
-              <div className="flex items-center gap-2 text-stone-500 mb-1"><Mail size={16} /><span className="text-xs font-medium">Correo</span></div>
-              <p className="text-sm text-stone-700">{(user as unknown as PerfilData).correo || "-"}</p>
+              <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400"><Mail size={16} /><span className="text-xs font-medium">Correo</span></div>
+              <p className="text-sm text-stone-700 dark:text-stone-200">{profile.correo || "-"}</p>
             </Card>
             <Card>
-              <div className="flex items-center gap-2 text-stone-500 mb-1"><Phone size={16} /><span className="text-xs font-medium">Teléfono</span></div>
-              <p className="text-sm text-stone-700">{(user as unknown as PerfilData).telefono || "-"}</p>
+              <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400"><Phone size={16} /><span className="text-xs font-medium">Teléfono</span></div>
+              <p className="text-sm text-stone-700 dark:text-stone-200">{profile.telefono || "-"}</p>
             </Card>
             <Card>
-              <div className="flex items-center gap-2 text-stone-500 mb-1"><Calendar size={16} /><span className="text-xs font-medium">Último Acceso</span></div>
-              <p className="text-sm text-stone-700">{(user as unknown as PerfilData).ultimoAcceso ? formatDate((user as unknown as PerfilData).ultimoAcceso!) : "-"}</p>
+              <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400"><Calendar size={16} /><span className="text-xs font-medium">Último Acceso</span></div>
+              <p className="text-sm text-stone-700 dark:text-stone-200">{profile.ultimoAcceso ? formatDate(profile.ultimoAcceso) : "-"}</p>
             </Card>
             <Card>
-              <div className="flex items-center gap-2 text-stone-500 mb-1"><Camera size={16} /><span className="text-xs font-medium">Foto</span></div>
+              <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400"><Camera size={16} /><span className="text-xs font-medium">Foto</span></div>
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-semibold text-sm">
-                  {user.nombre ? user.nombre.charAt(0).toUpperCase() : "U"}
+                <div className="h-10 w-10 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-semibold text-sm overflow-hidden">
+                  {profile.foto ? (
+                    <img src={profile.foto} alt="Foto" className="h-full w-full object-cover" />
+                  ) : (
+                    (profile.nombre ? profile.nombre.charAt(0).toUpperCase() : "U")
+                  )}
                 </div>
-                <span className="text-xs text-stone-400">Sin foto</span>
+                {profile.foto ? (
+                  <span className="text-xs text-emerald-600 dark:text-emerald-400">Con foto</span>
+                ) : (
+                  <span className="text-xs text-stone-400 dark:text-stone-500">Sin foto</span>
+                )}
               </div>
             </Card>
           </div>
         </>
-      )}
+      ) : null}
 
       <PerfilForm />
 
