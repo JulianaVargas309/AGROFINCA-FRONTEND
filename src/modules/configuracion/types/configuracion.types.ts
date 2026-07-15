@@ -1,7 +1,12 @@
-interface ConfiguracionData {
-  tema: "claro" | "oscuro"
-  idioma: string
-  notificaciones: boolean
+export interface Configuracion {
+  id: number
+  llave: string
+  valor: string
+  tipo: string
+  descripcion?: string
 }
 
-export type { ConfiguracionData }
+export interface UpsertConfiguracionInput {
+  valor: string
+  descripcion?: string
+}

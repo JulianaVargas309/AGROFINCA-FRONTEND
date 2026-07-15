@@ -27,7 +27,7 @@ function LoginForm() {
       await login(data)
       navigate("/app/dashboard", { replace: true })
     } catch {
-      // error manejado en useLogin
+      // error ya manejado por useLogin (Alert visible)
     }
   }
 

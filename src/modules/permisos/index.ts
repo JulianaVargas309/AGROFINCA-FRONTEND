@@ -1,0 +1,6 @@
+export { default as PermisosPage } from "./pages/PermisosPage"
+export { permisosService } from "./services/permisos.service"
+export { usePermisos } from "./hooks/usePermisos"
+export { createPermisoSchema, updatePermisoSchema } from "./schemas/permiso.schema"
+export type { CreatePermisoFormData, UpdatePermisoFormData } from "./schemas/permiso.schema"
+export type { Permiso, CreatePermisoInput, UpdatePermisoInput } from "./types/permiso.types"

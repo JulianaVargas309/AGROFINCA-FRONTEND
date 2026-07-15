@@ -1,0 +1,5 @@
+export { default as AuditoriaPage } from "./pages/AuditoriaPage"
+export { auditoriaService } from "./services/auditoria.service"
+export { useAuditorias } from "./hooks/useAuditorias"
+export { useAuditoria } from "./hooks/useAuditoria"
+export type { AuditLog } from "./types/auditoria.types"

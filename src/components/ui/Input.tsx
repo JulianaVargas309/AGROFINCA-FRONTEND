@@ -19,7 +19,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="flex flex-col gap-1.5">
         {label && (
-          <label htmlFor={inputId} className="text-sm font-medium text-stone-700">
+          <label htmlFor={inputId} className="text-sm font-medium text-stone-700 dark:text-stone-300">
             {label}
           </label>
         )}
@@ -34,9 +34,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             id={inputId}
             type={resolvedType}
             className={cn(
-              "rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm text-stone-900 placeholder:text-stone-400 w-full",
+              "rounded-lg border border-stone-300 bg-white dark:border-stone-700 dark:bg-stone-800 px-3 py-2 text-sm text-stone-900 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 w-full",
               "focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500",
-              "disabled:cursor-not-allowed disabled:bg-stone-50 disabled:text-stone-500",
+              "disabled:cursor-not-allowed disabled:bg-stone-50 dark:disabled:bg-stone-900 disabled:text-stone-500 dark:disabled:text-stone-400",
               icon ? "pl-10" : "",
               isPassword ? "pr-10" : "",
               error ? "border-red-500 focus:ring-red-500 focus:border-red-500" : "",
@@ -48,16 +48,16 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 dark:hover:text-stone-300 cursor-pointer"
               tabIndex={-1}
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
           )}
         </div>
-        {error && <p className="text-xs text-red-600">{error}</p>}
+        {error && <p className="text-xs text-red-600 dark:text-red-400">{error}</p>}
         {helperText && !error && (
-          <p className="text-xs text-stone-500">{helperText}</p>
+          <p className="text-xs text-stone-500 dark:text-stone-400">{helperText}</p>
         )}
       </div>
     )

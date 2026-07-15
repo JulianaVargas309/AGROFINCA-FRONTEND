@@ -31,7 +31,18 @@ axiosInstance.interceptors.request.use(
 )
 
 axiosInstance.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    const body = response.data
+    if (body && typeof body === "object" && "success" in body) {
+      if (body.success === false) {
+        return Promise.reject(new Error((body as { message?: string }).message || "Error del servidor"))
+      }
+      if ("data" in body) {
+        response.data = (body as { data: unknown }).data
+      }
+    }
+    return response
+  },
   async (error) => {
     const originalRequest = error.config
 

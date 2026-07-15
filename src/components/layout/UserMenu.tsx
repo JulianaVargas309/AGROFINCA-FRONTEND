@@ -29,27 +29,27 @@ function UserMenu() {
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 rounded-lg p-1.5 hover:bg-stone-100 cursor-pointer"
+        className="flex items-center gap-2 rounded-lg p-1.5 hover:bg-stone-100 dark:hover:bg-stone-800 cursor-pointer"
       >
         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-sm font-bold text-emerald-700">
           {user?.nombre?.charAt(0).toUpperCase() ?? "U"}
         </div>
         <div className="hidden text-left sm:block">
-          <p className="text-sm font-medium text-stone-700 leading-tight">
+          <p className="text-sm font-medium text-stone-700 dark:text-stone-200 leading-tight">
             {user?.nombre ?? user?.documento ?? "Usuario"}
           </p>
-          <p className="text-xs text-stone-500 leading-tight">{user?.rol ?? ""}</p>
+          <p className="text-xs text-stone-500 dark:text-stone-400 leading-tight">{user?.rol ?? ""}</p>
         </div>
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full z-50 mt-2 w-48 rounded-xl border border-stone-200 bg-white py-1 shadow-lg">
+        <div className="absolute right-0 top-full z-50 mt-2 w-48 rounded-xl border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 py-1 shadow-lg">
           <button
             onClick={() => {
               navigate(ROUTES.PERFIL)
               setIsOpen(false)
             }}
-            className="flex w-full items-center gap-2 px-4 py-2 text-sm text-stone-700 hover:bg-stone-50 cursor-pointer"
+            className="flex w-full items-center gap-2 px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800 cursor-pointer"
           >
             <User size={16} />
             Perfil
@@ -59,12 +59,12 @@ function UserMenu() {
               navigate(ROUTES.CONFIGURACION)
               setIsOpen(false)
             }}
-            className="flex w-full items-center gap-2 px-4 py-2 text-sm text-stone-700 hover:bg-stone-50 cursor-pointer"
+            className="flex w-full items-center gap-2 px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800 cursor-pointer"
           >
             <Settings size={16} />
             Configuración
           </button>
-          <hr className="my-1 border-stone-100" />
+          <hr className="my-1 border-stone-100 dark:border-stone-700" />
           <button
             onClick={handleLogout}
             className="flex w-full items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 cursor-pointer"

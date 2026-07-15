@@ -1,0 +1,8 @@
+export { default as HistorialLaboralPage } from "./pages/HistorialLaboralPage"
+export { default as NuevoHistorialPage } from "./pages/NuevoHistorialPage"
+export { historialLaboralService } from "./services/historial-laboral.service"
+export { useHistorialLaboralList } from "./hooks/useHistorialLaboralList"
+export { useHistorialLaboral } from "./hooks/useHistorialLaboral"
+export { createHistorialSchema } from "./schemas/historial-laboral.schema"
+export type { CreateHistorialFormData } from "./schemas/historial-laboral.schema"
+export type { HistorialLaboral, CreateHistorialInput } from "./types/historial-laboral.types"

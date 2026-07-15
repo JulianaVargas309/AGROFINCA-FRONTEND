@@ -27,21 +27,21 @@ function Breadcrumb({ items, className }: BreadcrumbProps) {
     <nav className={cn("flex items-center gap-1 text-sm", className)}>
       <Link
         to="/app/dashboard"
-        className="text-stone-400 hover:text-stone-600"
+        className="text-stone-400 hover:text-stone-600 dark:text-stone-500 dark:hover:text-stone-300"
       >
         <Home size={14} />
       </Link>
       {resolvedItems.map((item, index) => (
         <div key={item.label} className="flex items-center gap-1">
-          <ChevronRight size={12} className="text-stone-300" />
+          <ChevronRight size={12} className="text-stone-300 dark:text-stone-600" />
           {index === resolvedItems.length - 1 ? (
-            <span className="text-stone-600 font-medium">{item.label}</span>
+            <span className="text-stone-600 dark:text-stone-300 font-medium">{item.label}</span>
           ) : item.href ? (
-            <Link to={item.href} className="text-stone-400 hover:text-stone-600">
+            <Link to={item.href} className="text-stone-400 hover:text-stone-600 dark:text-stone-500 dark:hover:text-stone-300">
               {item.label}
             </Link>
           ) : (
-            <span className="text-stone-400">{item.label}</span>
+            <span className="text-stone-400 dark:text-stone-500">{item.label}</span>
           )}
         </div>
       ))}

@@ -1,20 +1,40 @@
-import { useLocalStorage } from "@/hooks/useLocalStorage"
-import { useCallback } from "react"
-import type { ConfiguracionInput } from "../schemas/configuracion.schema"
+import { useState, useEffect, useCallback, useRef } from "react"
+import { configuracionService } from "../services/configuracion.service"
+import type { Configuracion } from "../types/configuracion.types"
 
-export function useConfiguracion() {
-  const [config, setConfig] = useLocalStorage<ConfiguracionInput>("agrofinca_config", {
-    tema: "claro",
-    idioma: "es",
-    notificaciones: true,
-  })
+interface UseConfiguracionReturn {
+  configs: Configuracion[]
+  loading: boolean
+  error: string | null
+  refetch: () => Promise<void>
+}
 
-  const updateConfig = useCallback(
-    (data: Partial<ConfiguracionInput>) => {
-      setConfig((prev) => ({ ...prev, ...data }))
-    },
-    [setConfig],
-  )
+export function useConfiguracion(): UseConfiguracionReturn {
+  const [configs, setConfigs] = useState<Configuracion[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const mountedRef = useRef(true)
 
-  return { config, updateConfig }
+  const fetchConfigs = useCallback(async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const result = await configuracionService.findAll()
+      if (mountedRef.current) setConfigs(result)
+    } catch (err) {
+      if (mountedRef.current) {
+        setError(err instanceof Error ? err.message : "Error al cargar configuración")
+      }
+    } finally {
+      if (mountedRef.current) setLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    mountedRef.current = true
+    fetchConfigs()
+    return () => { mountedRef.current = false }
+  }, [fetchConfigs])
+
+  return { configs, loading, error, refetch: fetchConfigs }
 }

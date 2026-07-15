@@ -10,6 +10,9 @@ export interface DashboardStats {
   produccionCania: number
   roi: number
   cultivosActivos: number
+  totalTrabajadoresActivos?: number
+  jornalesDelDia?: number
+  ganancias?: number
 }
 
 export interface ActividadReciente {
@@ -55,4 +58,20 @@ export interface DashboardData {
   ventasResumen: VentasResumen
   gastosPorCategoria: GastosResumen[]
   ultimosMovimientos: UltimoMovimiento[]
+}
+
+export interface DashboardResumen {
+  totalFincas: number
+  totalLotes: number
+  cultivosActivos: number
+  trabajadoresActivos: number
+  jornalesDelDia: number
+  actividadesPendientes: number
+  eventosHoy: number
+  inventarioCritico: number
+  ventasDelMes: number
+  gastosDelMes: number
+  utilidadEstimada: number
+  produccionPorCultivo: { cultivo: string; total: number }[]
+  notificacionesNoLeidas: number
 }

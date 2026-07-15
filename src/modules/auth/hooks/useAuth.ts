@@ -17,6 +17,10 @@ export function useLogin() {
         const message =
           err instanceof Error ? err.message : "Error al iniciar sesión. Verifica tus credenciales."
         setError(message)
+        if (import.meta.env.DEV) {
+          console.error("[useLogin]", err)
+        }
+        throw err
       } finally {
         setLoading(false)
       }

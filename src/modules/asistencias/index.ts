@@ -1,0 +1,7 @@
+export { default as AsistenciasPage } from "./pages/AsistenciasPage"
+export { asistenciaService } from "./services/asistencia.service"
+export { useAsistencias } from "./hooks/useAsistencias"
+export { useAsistencia } from "./hooks/useAsistencia"
+export { createAsistenciaSchema } from "./schemas/asistencia.schema"
+export type { CreateAsistenciaFormData } from "./schemas/asistencia.schema"
+export type { Asistencia, CreateAsistenciaInput } from "./types/asistencias.types"

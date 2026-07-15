@@ -1,9 +1,8 @@
 import { z } from "zod"
 
 export const configuracionSchema = z.object({
-  tema: z.enum(["claro", "oscuro"]).default("claro"),
-  idioma: z.string().default("es"),
-  notificaciones: z.boolean().default(true),
+  valor: z.string().min(1, "El valor es requerido"),
+  descripcion: z.string().optional().or(z.literal("")),
 })
 
 export type ConfiguracionInput = z.infer<typeof configuracionSchema>

@@ -19,11 +19,11 @@ function EmptyState({
 }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
-      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-stone-100 text-stone-400">
+      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-stone-100 dark:bg-stone-800 text-stone-400 dark:text-stone-500">
         {icon || <Inbox size={28} />}
       </div>
-      <h3 className="text-lg font-semibold text-stone-700">{title}</h3>
-      <p className="max-w-sm text-sm text-stone-500">{description}</p>
+      <h3 className="text-lg font-semibold text-stone-700 dark:text-stone-300">{title}</h3>
+      <p className="max-w-sm text-sm text-stone-500 dark:text-stone-400">{description}</p>
       {actionLabel && onAction && (
         <Button variant="outline" onClick={onAction} className="mt-2">
           {actionLabel}

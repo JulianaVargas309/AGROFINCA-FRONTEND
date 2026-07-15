@@ -12,7 +12,7 @@ function Footer({ className, children }: FooterProps) {
   return (
     <footer
       className={cn(
-        "border-t border-stone-200 bg-white px-6 py-4 text-center text-xs text-stone-400",
+        "border-t border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-900 px-6 py-4 text-center text-xs text-stone-400 dark:text-stone-500",
         className,
       )}
     >

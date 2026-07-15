@@ -18,7 +18,7 @@ function Pagination({ currentPage, totalPages, onPageChange, className }: Pagina
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="rounded-lg p-2 text-stone-500 hover:bg-stone-100 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+        className="rounded-lg p-2 text-stone-500 hover:bg-stone-100 dark:text-stone-400 dark:hover:bg-stone-800 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
       >
         <ChevronLeft size={16} />
       </button>
@@ -36,7 +36,7 @@ function Pagination({ currentPage, totalPages, onPageChange, className }: Pagina
               "min-w-[2rem] rounded-lg px-2 py-1 text-sm font-medium cursor-pointer",
               page === currentPage
                 ? "bg-emerald-700 text-white"
-                : "text-stone-600 hover:bg-stone-100",
+                : "text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800",
             )}
           >
             {page}
@@ -47,7 +47,7 @@ function Pagination({ currentPage, totalPages, onPageChange, className }: Pagina
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="rounded-lg p-2 text-stone-500 hover:bg-stone-100 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+        className="rounded-lg p-2 text-stone-500 hover:bg-stone-100 dark:text-stone-400 dark:hover:bg-stone-800 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
       >
         <ChevronRight size={16} />
       </button>

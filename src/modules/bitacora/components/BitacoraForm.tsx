@@ -57,10 +57,16 @@ function BitacoraForm({ defaultValues, onSubmit, loading, error, onClearError, s
   useEffect(() => { bitacoraService.fetchProductos().then(setProductosF).catch(() => {}) }, [])
 
   useEffect(() => {
-    const selectedLote = lotes.find((l) => l.id === Number(loteIdWatch))
-    const fincaId = selectedLote?.fincaId || (lotes.length > 0 ? lotes[0].fincaId : null)
-    if (fincaId) bitacoraService.fetchLotes(fincaId).then(setLotes).catch(() => {})
-  }, [loteIdWatch, lotes])
+    bitacoraService.fetchFincas().then((fincas) => {
+      const fincaList = Array.isArray(fincas) ? fincas as Array<{ id: number }> : []
+      if (fincaList.length === 0) return
+      Promise.all(fincaList.map((f) =>
+        bitacoraService.fetchLotes(f.id).catch(() => [] as LoteOption[])
+      )).then((results) => {
+        setLotes(results.flat().filter(Boolean) as LoteOption[])
+      })
+    }).catch(() => {})
+  }, [])
 
   useEffect(() => {
     const lid = Number(loteIdWatch)

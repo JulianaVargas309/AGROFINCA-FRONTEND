@@ -50,14 +50,14 @@ function Dialog({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50" onClick={onClose} />
-      <div className="relative z-10 mx-4 w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+      <div className="relative z-10 mx-4 w-full max-w-md rounded-xl bg-white dark:bg-stone-900 p-6 shadow-xl">
         <div className="flex items-start gap-4">
-          <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-stone-100", style.icon)}>
+          <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-stone-100 dark:bg-stone-800", style.icon)}>
             {icon || <AlertTriangle size={20} />}
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-semibold text-stone-900">{title}</h3>
-            <p className="mt-1 text-sm text-stone-600">{message}</p>
+            <h3 className="text-lg font-semibold text-stone-900 dark:text-stone-100">{title}</h3>
+            <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">{message}</p>
           </div>
         </div>
         <div className="mt-6 flex justify-end gap-3">

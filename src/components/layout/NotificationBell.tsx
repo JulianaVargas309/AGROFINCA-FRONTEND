@@ -11,7 +11,7 @@ function NotificationBell({ count = 0, onClick, className }: NotificationBellPro
   return (
     <button
       onClick={onClick}
-      className={cn("relative rounded-lg p-2 text-stone-500 hover:bg-stone-100 hover:text-stone-700 cursor-pointer", className)}
+      className={cn("relative rounded-lg p-2 text-stone-500 hover:bg-stone-100 dark:text-stone-400 dark:hover:bg-stone-800 hover:text-stone-700 dark:hover:text-stone-200 cursor-pointer", className)}
     >
       <Bell size={20} />
       {count > 0 && (

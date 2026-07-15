@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import { Select } from "@/components/ui/Select"
+import { Textarea } from "@/components/ui/Textarea"
 import { Alert } from "@/components/ui/Alert"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -50,12 +51,31 @@ function NuevoTrabajadorPage() {
       {error && <Alert severity="error">{error}</Alert>}
       <Card>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <Input label="Nombre Completo" {...register("nombre")} error={errors.nombre?.message} />
-          <Input label="Documento" {...register("documento")} error={errors.documento?.message} />
-          <Input label="Teléfono" {...register("telefono")} error={errors.telefono?.message} />
-          <Input label="Dirección" {...register("direccion")} error={errors.direccion?.message} />
-          <Select label="Cargo" options={cargoOptions} placeholder="Seleccione..." {...register("cargo")} error={errors.cargo?.message} />
-          <Input label="Fecha de Ingreso" type="date" {...register("fechaIngreso")} error={errors.fechaIngreso?.message} />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Input label="Nombre" {...register("nombre")} error={errors.nombre?.message} />
+            <Input label="Apellido" {...register("apellido")} error={errors.apellido?.message} />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Input label="Documento" {...register("documento")} error={errors.documento?.message} />
+            <Input label="Teléfono" {...register("telefono")} error={errors.telefono?.message} />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Input label="Correo" type="email" {...register("correo")} error={errors.correo?.message} />
+            <Input label="Dirección" {...register("direccion")} error={errors.direccion?.message} />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Input label="Fecha de Nacimiento" type="date" {...register("fechaNacimiento")} error={errors.fechaNacimiento?.message} />
+            <Input label="Fecha de Ingreso" type="date" {...register("fechaIngreso")} error={errors.fechaIngreso?.message} />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Select label="Cargo" options={cargoOptions} placeholder="Seleccione..." {...register("cargo")} error={errors.cargo?.message} />
+            <Input label="Salario" type="number" {...register("salario")} error={errors.salario?.message} />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Input label="EPS" {...register("eps")} error={errors.eps?.message} />
+            <Input label="ARL" {...register("arl")} error={errors.arl?.message} />
+          </div>
+          <Textarea label="Observaciones" {...register("observaciones")} error={errors.observaciones?.message} />
           <div className="flex justify-end gap-3 pt-4">
             <Link to="/app/trabajadores"><Button type="button" variant="outline">Cancelar</Button></Link>
             <Button type="submit" disabled={isSubmitting}><Save size={16} />{isSubmitting ? "Guardando..." : "Guardar"}</Button>

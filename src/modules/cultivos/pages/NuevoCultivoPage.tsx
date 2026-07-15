@@ -9,10 +9,15 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createCultivoSchema, type CreateCultivoFormData } from "../schemas/cultivo.schema"
 import { cultivoService } from "../services/cultivo.service"
+import { fincaService } from "@/modules/fincas/services/finca.service"
+import { loteService } from "@/modules/lotes/services/lote.service"
 import { useNotification } from "@/hooks/useNotification"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ArrowLeft, Save } from "lucide-react"
 import type { Option } from "@/types"
+
+interface FincaOption { id: number; nombre: string }
+interface LoteOption { id: number; nombre: string }
 
 const tipoOptions: Option[] = [
   { value: "CAFE", label: "Café" },
@@ -30,10 +35,29 @@ function NuevoCultivoPage() {
   const navigate = useNavigate()
   const { notify } = useNotification()
   const [error, setError] = useState<string | null>(null)
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<CreateCultivoFormData>({
+  const [fincas, setFincas] = useState<FincaOption[]>([])
+  const [lotes, setLotes] = useState<LoteOption[]>([])
+  const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<CreateCultivoFormData>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(createCultivoSchema) as any,
   })
+
+  const fincaIdWatch = watch("fincaId")
+
+  useEffect(() => {
+    fincaService.findAll().then((res) => {
+      const list = Array.isArray(res) ? res : (res as { data: FincaOption[] }).data
+      setFincas(list ?? [])
+    }).catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    if (!fincaIdWatch) { setLotes([]); return }
+    loteService.findAll(Number(fincaIdWatch)).then((res) => {
+      const list = Array.isArray(res) ? res : (res as { data: LoteOption[] }).data
+      setLotes(list ?? [])
+    }).catch(() => setLotes([]))
+  }, [fincaIdWatch])
 
   const onSubmit = async (data: CreateCultivoFormData) => {
     setError(null)
@@ -70,8 +94,8 @@ function NuevoCultivoPage() {
           <Input label="Fecha de Siembra" type="date" {...register("fechaSiembra")} error={errors.fechaSiembra?.message} />
           <Input label="Área Sembrada (ha)" type="number" {...register("areaSembrada")} error={errors.areaSembrada?.message} />
           <Select label="Estado" options={estadoOptions} placeholder="Seleccione..." {...register("estado")} error={errors.estado?.message} />
-          <Input label="ID del Lote" type="number" {...register("loteId")} error={errors.loteId?.message} />
-          <Input label="ID de la Finca" type="number" {...register("fincaId")} error={errors.fincaId?.message} />
+          <Select label="Finca" options={fincas.map((f) => ({ value: String(f.id), label: f.nombre }))} placeholder="Seleccione una finca" {...register("fincaId")} error={errors.fincaId?.message} />
+          <Select label="Lote" options={lotes.map((l) => ({ value: String(l.id), label: l.nombre }))} placeholder={fincaIdWatch ? "Seleccione un lote" : "Primero seleccione una finca"} {...register("loteId")} error={errors.loteId?.message} disabled={!fincaIdWatch} />
           <div className="flex justify-end gap-3 pt-4">
             <Link to="/app/cultivos"><Button type="button" variant="outline">Cancelar</Button></Link>
             <Button type="submit" disabled={isSubmitting}><Save size={16} />{isSubmitting ? "Guardando..." : "Guardar"}</Button>
