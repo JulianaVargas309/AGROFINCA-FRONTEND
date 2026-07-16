@@ -12,7 +12,7 @@ export function useRegister() {
       setLoading(true)
       setError(null)
       try {
-        await register({ documento: data.documento, rol: data.rol })
+        await register({ documento: data.documento, correo: data.correo, telefono: data.telefono, rol: data.rol })
       } catch (err) {
         const message =
           err instanceof Error ? err.message : "Error al registrarse. Intenta de nuevo."

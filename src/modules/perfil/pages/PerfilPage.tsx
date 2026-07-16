@@ -9,7 +9,7 @@ import { Modal } from "@/components/ui/Modal"
 import { PerfilForm } from "../components/PerfilForm"
 import { useAuth } from "@/hooks/useAuth"
 import { ROLES } from "@/constants/roles"
-import { formatDate } from "@/utils/formatDate"
+import { formatDate, formatDateTime } from "@/utils/formatDate"
 import { usePerfil } from "../hooks/usePerfil"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -100,7 +100,7 @@ function PerfilPage() {
             </Card>
             <Card>
               <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400"><Calendar size={16} /><span className="text-xs font-medium">Último Acceso</span></div>
-              <p className="text-sm text-stone-700 dark:text-stone-200">{profile.ultimoAcceso ? formatDate(profile.ultimoAcceso) : "-"}</p>
+              <p className="text-sm text-stone-700 dark:text-stone-200">{profile.ultimoAcceso ? formatDateTime(profile.ultimoAcceso) : "-"}</p>
             </Card>
             <Card>
               <div className="flex items-center gap-2 text-stone-500 mb-1 dark:text-stone-400"><Camera size={16} /><span className="text-xs font-medium">Foto</span></div>

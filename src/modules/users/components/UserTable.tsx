@@ -27,6 +27,8 @@ function UserTable({ users, loading, renderActions }: UserTableProps) {
       ),
     },
     { key: "documento", header: "Documento" },
+    { key: "correo", header: "Correo", render: (item) => item.correo || "-" },
+    { key: "telefono", header: "Teléfono", render: (item) => item.telefono || "-" },
     {
       key: "rol",
       header: "Rol",

@@ -29,6 +29,8 @@ interface LoginCredentials {
 
 interface RegisterData {
   documento: string
+  correo?: string
+  telefono?: string
   rol?: Rol
 }
 

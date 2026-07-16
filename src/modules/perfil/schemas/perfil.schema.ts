@@ -1,9 +1,11 @@
 import { z } from "zod"
-import { nombreValidator, documentoValidator, passwordValidator } from "@/utils/validators"
+import { nombreValidator, documentoValidator, passwordValidator, phoneValidator } from "@/utils/validators"
 
 export const perfilSchema = z.object({
   nombre: nombreValidator,
   documento: documentoValidator,
+  correo: z.string().email("Correo inválido").optional().or(z.literal("")),
+  telefono: phoneValidator,
 })
 
 export const changePasswordSchema = z

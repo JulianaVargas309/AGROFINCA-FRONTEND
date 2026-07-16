@@ -59,7 +59,7 @@ export function usePerfil(): UsePerfilReturn {
   }, [loadProfile])
 
   const updateProfile = useCallback(
-    async (data: { nombre: string; documento: string }) => {
+    async (data: { nombre: string; documento: string; correo?: string; telefono?: string }) => {
       if (!user?.id) return
       setSaving(true)
       clearMessages()

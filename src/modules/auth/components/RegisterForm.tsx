@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useNavigate, Link } from "react-router-dom"
-import { IdCard } from "lucide-react"
+import { IdCard, Mail, Phone } from "lucide-react"
 import { Input } from "@/components/ui/Input"
 import { Select } from "@/components/ui/Select"
 import { Button } from "@/components/ui/Button"
@@ -49,6 +49,24 @@ function RegisterForm() {
         icon={<IdCard size={18} />}
         error={errors.documento?.message}
         {...register("documento")}
+      />
+
+      <Input
+        label="Correo"
+        placeholder="correo@ejemplo.com"
+        autoComplete="email"
+        icon={<Mail size={18} />}
+        error={errors.correo?.message}
+        {...register("correo")}
+      />
+
+      <Input
+        label="Teléfono"
+        placeholder="Número de teléfono"
+        autoComplete="tel"
+        icon={<Phone size={18} />}
+        error={errors.telefono?.message}
+        {...register("telefono")}
       />
 
       <Select

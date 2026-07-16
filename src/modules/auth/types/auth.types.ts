@@ -22,5 +22,7 @@ export interface LoginInput {
 
 export interface RegisterInput {
   documento: string
+  correo?: string
+  telefono?: string
   rol?: string
 }

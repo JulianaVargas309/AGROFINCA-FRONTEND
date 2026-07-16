@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/Card"
 import { Badge } from "@/components/ui/Badge"
 import { UserStatus } from "./UserStatus"
-import { formatDate } from "@/utils/formatDate"
+import { formatDate, formatDateTime } from "@/utils/formatDate"
 import { User, IdCard, Mail, Phone, Shield, Calendar, Clock } from "lucide-react"
 import type { User as UserType } from "../types/user.types"
 
@@ -18,7 +18,7 @@ function UserCard({ user }: UserCardProps) {
     { label: "Rol", value: <Badge color={user.rol === "ADMIN" ? "error" : user.rol === "FAMILIAR" ? "info" : user.rol === "TRABAJADOR" ? "warning" : "default"}>{user.rol}</Badge>, icon: Shield },
     { label: "Estado", value: <UserStatus activo={user.activo} />, icon: Shield },
     { label: "Creado", value: formatDate(user.createdAt), icon: Calendar },
-    { label: "Último acceso", value: user.ultimoAcceso ? formatDate(user.ultimoAcceso) : "-", icon: Clock },
+    { label: "Último acceso", value: user.ultimoAcceso ? formatDateTime(user.ultimoAcceso) : "-", icon: Clock },
   ]
 
   return (

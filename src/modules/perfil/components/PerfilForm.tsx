@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "@/components/ui/Input"
@@ -7,20 +8,32 @@ import { Card } from "@/components/ui/Card"
 import { perfilSchema, changePasswordSchema, type PerfilInput, type ChangePasswordInput } from "../schemas/perfil.schema"
 import { usePerfil } from "../hooks/usePerfil"
 import { useAuth } from "@/hooks/useAuth"
-import { User, Lock, IdCard } from "lucide-react"
+import { User, Lock, IdCard, Mail, Phone } from "lucide-react"
 
 function PerfilForm() {
   const { user } = useAuth()
-  const { saving, error, successMessage, updateProfile, changePassword, clearMessages } = usePerfil()
+  const { profile, saving, error, successMessage, updateProfile, changePassword, clearMessages } = usePerfil()
 
   const {
     register: registerInfo,
     handleSubmit: handleInfoSubmit,
     formState: { errors: infoErrors },
+    reset: resetInfo,
   } = useForm<PerfilInput>({
     resolver: zodResolver(perfilSchema),
-    defaultValues: { nombre: user?.nombre ?? "", documento: user?.documento ?? "" },
+    defaultValues: { nombre: "", documento: "", correo: "", telefono: "" },
   })
+
+  useEffect(() => {
+    if (profile) {
+      resetInfo({
+        nombre: profile.nombre,
+        documento: profile.documento,
+        correo: profile.correo ?? "",
+        telefono: profile.telefono ?? "",
+      })
+    }
+  }, [profile, resetInfo])
 
   const {
     register: registerPwd,
@@ -42,6 +55,10 @@ function PerfilForm() {
         <form onSubmit={handleInfoSubmit(updateProfile)} className="space-y-4">
           <Input label="Usuario" icon={<User size={18} />} error={infoErrors.nombre?.message} {...registerInfo("nombre")} />
           <Input label="Número de documento" icon={<IdCard size={18} />} error={infoErrors.documento?.message} {...registerInfo("documento")} />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Input label="Correo" type="email" icon={<Mail size={18} />} error={infoErrors.correo?.message} {...registerInfo("correo")} />
+            <Input label="Teléfono" icon={<Phone size={18} />} error={infoErrors.telefono?.message} {...registerInfo("telefono")} />
+          </div>
           <div className="flex justify-end">
             <Button type="submit" loading={saving}>Guardar Cambios</Button>
           </div>
