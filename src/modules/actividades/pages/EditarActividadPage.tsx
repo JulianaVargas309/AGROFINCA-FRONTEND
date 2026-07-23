@@ -3,9 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Select } from "@/components/ui/Select"
-import { Textarea } from "@/components/ui/Textarea"
+import { Form, FormInput, FormSelect, FormTextarea, FormActions, FormSection, FormLabel } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { Spinner } from "@/components/ui/Spinner"
 import { useForm, useFieldArray } from "react-hook-form"
@@ -86,23 +84,23 @@ function EditarActividadPage() {
         }
       />
       <Card>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <Input label="Título" {...register("titulo")} error={errors.titulo?.message} />
-          <Textarea label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
-          <Select label="Estado" options={estadoOptions} placeholder="Seleccione..." {...register("estado")} error={errors.estado?.message} />
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormInput label="Título" {...register("titulo")} error={errors.titulo?.message} />
+          <FormTextarea label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
+          <FormSelect label="Estado" options={estadoOptions} placeholder="Seleccione..." {...register("estado")} error={errors.estado?.message} />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input label="Fecha de Inicio" type="date" {...register("fechaInicio")} error={errors.fechaInicio?.message} />
-            <Input label="Fecha de Fin" type="date" {...register("fechaFin")} error={errors.fechaFin?.message} />
+            <FormInput label="Fecha de Inicio" type="date" {...register("fechaInicio")} error={errors.fechaInicio?.message} />
+            <FormInput label="Fecha de Fin" type="date" {...register("fechaFin")} error={errors.fechaFin?.message} />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input label="Tiempo Invertido (horas)" type="number" {...register("tiempoInvertido")} error={errors.tiempoInvertido?.message} />
-            <Input label="Costo" type="number" {...register("costo")} error={errors.costo?.message} />
+            <FormInput label="Tiempo Invertido (horas)" type="number" {...register("tiempoInvertido")} error={errors.tiempoInvertido?.message} />
+            <FormInput label="Costo" type="number" {...register("costo")} error={errors.costo?.message} />
           </div>
-          <Input label="Responsable ID" type="number" {...register("responsableId")} error={errors.responsableId?.message} />
+          <FormInput label="Responsable ID" type="number" {...register("responsableId")} error={errors.responsableId?.message} />
 
-          <div className="space-y-2">
+          <FormSection title="Evidencias">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-medium text-stone-700">Evidencias</label>
+              <FormLabel>Evidencias</FormLabel>
               <Button type="button" variant="outline" size="sm" onClick={() => appendEv({ url: "", tipo: "", descripcion: "" })}>
                 <Plus size={14} /> Agregar
               </Button>
@@ -110,20 +108,20 @@ function EditarActividadPage() {
             {evFields.map((field, index) => (
               <div key={field.id} className="flex items-start gap-2 p-3 rounded-lg border border-stone-200">
                 <div className="flex-1 space-y-2">
-                  <Input placeholder="URL" {...register(`evidencias.${index}.url`)} error={errors.evidencias?.[index]?.url?.message} />
-                  <Input placeholder="Tipo (imagen, documento, etc)" {...register(`evidencias.${index}.tipo`)} error={errors.evidencias?.[index]?.tipo?.message} />
-                  <Input placeholder="Descripción" {...register(`evidencias.${index}.descripcion`)} />
+                  <FormInput placeholder="URL" {...register(`evidencias.${index}.url`)} error={errors.evidencias?.[index]?.url?.message} />
+                  <FormInput placeholder="Tipo (imagen, documento, etc)" {...register(`evidencias.${index}.tipo`)} error={errors.evidencias?.[index]?.tipo?.message} />
+                  <FormInput placeholder="Descripción" {...register(`evidencias.${index}.descripcion`)} />
                 </div>
                 <button type="button" onClick={() => removeEv(index)} className="mt-2 rounded-lg p-1.5 text-red-400 hover:bg-red-50 hover:text-red-600 cursor-pointer">
                   <Trash2 size={16} />
                 </button>
               </div>
             ))}
-          </div>
+          </FormSection>
 
-          <div className="space-y-2">
+          <FormSection title="Productos Utilizados">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-medium text-stone-700">Productos Utilizados</label>
+              <FormLabel>Productos Utilizados</FormLabel>
               <Button type="button" variant="outline" size="sm" onClick={() => appendProd({ cantidad: 0, productoId: 0 })}>
                 <Plus size={14} /> Agregar
               </Button>
@@ -131,25 +129,24 @@ function EditarActividadPage() {
             {prodFields.map((field, index) => (
               <div key={field.id} className="flex items-start gap-2 p-3 rounded-lg border border-stone-200">
                 <div className="flex-1 grid grid-cols-2 gap-2">
-                  <Input type="number" placeholder="Cantidad" {...register(`productosUtilizados.${index}.cantidad`)} error={errors.productosUtilizados?.[index]?.cantidad?.message} />
-                  <Input type="number" placeholder="Producto ID" {...register(`productosUtilizados.${index}.productoId`)} error={errors.productosUtilizados?.[index]?.productoId?.message} />
+                  <FormInput type="number" placeholder="Cantidad" {...register(`productosUtilizados.${index}.cantidad`)} error={errors.productosUtilizados?.[index]?.cantidad?.message} />
+                  <FormInput type="number" placeholder="Producto ID" {...register(`productosUtilizados.${index}.productoId`)} error={errors.productosUtilizados?.[index]?.productoId?.message} />
                 </div>
                 <button type="button" onClick={() => removeProd(index)} className="mt-2 rounded-lg p-1.5 text-red-400 hover:bg-red-50 hover:text-red-600 cursor-pointer">
                   <Trash2 size={16} />
                 </button>
               </div>
             ))}
-          </div>
-
-          <div className="flex justify-end gap-3 pt-4">
+          </FormSection>
+          <FormActions>
             <Link to={actividadId ? `/app/actividades/${actividadId}` : "/app/actividades"}>
               <Button type="button" variant="outline">Cancelar</Button>
             </Link>
             <Button type="submit" disabled={isSubmitting}>
               <Save size={16} />{isSubmitting ? "Guardando..." : "Guardar Cambios"}
             </Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Card>
     </div>
   )

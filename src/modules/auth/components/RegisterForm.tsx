@@ -2,8 +2,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useNavigate, Link } from "react-router-dom"
 import { IdCard, Mail, Phone } from "lucide-react"
-import { Input } from "@/components/ui/Input"
-import { Select } from "@/components/ui/Select"
+import { Form, FormInput, FormSelect } from "@/components/form"
 import { Button } from "@/components/ui/Button"
 import { Alert } from "@/components/ui/Alert"
 import { registerSchema, type RegisterInput } from "../schemas/register.schema"
@@ -35,14 +34,14 @@ function RegisterForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+    <Form onSubmit={handleSubmit(onSubmit)}>
       {error && (
         <Alert severity="error" onClose={clearError}>
           {error}
         </Alert>
       )}
 
-      <Input
+      <FormInput
         label="Usuario"
         placeholder="Número de documento"
         autoComplete="off"
@@ -51,7 +50,7 @@ function RegisterForm() {
         {...register("documento")}
       />
 
-      <Input
+      <FormInput
         label="Correo"
         placeholder="correo@ejemplo.com"
         autoComplete="email"
@@ -60,7 +59,7 @@ function RegisterForm() {
         {...register("correo")}
       />
 
-      <Input
+      <FormInput
         label="Teléfono"
         placeholder="Número de teléfono"
         autoComplete="tel"
@@ -69,7 +68,7 @@ function RegisterForm() {
         {...register("telefono")}
       />
 
-      <Select
+      <FormSelect
         label="Rol"
         options={ROLES_LIST}
         error={errors.rol?.message}
@@ -86,7 +85,7 @@ function RegisterForm() {
           Iniciar Sesión
         </Link>
       </p>
-    </form>
+    </Form>
   )
 }
 

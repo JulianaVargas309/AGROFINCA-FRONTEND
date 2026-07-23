@@ -2,8 +2,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Select } from "@/components/ui/Select"
+import { Form, FormInput, FormSelect, FormActions } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -91,21 +90,21 @@ function NuevaProduccionPage() {
       />
       {error && <Alert severity="error">{error}</Alert>}
       <Card>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <Input label="Fecha" type="date" {...register("fecha")} error={errors.fecha?.message} />
-          <Input label="Cantidad" type="number" {...register("cantidad")} error={errors.cantidad?.message} />
-          <Input label="Unidad" {...register("unidad")} placeholder="ej. kg, qq, lb" error={errors.unidad?.message} />
-          <Select label="Calidad" options={calidadOptions} placeholder="Seleccione..." {...register("calidad")} error={errors.calidad?.message} />
-          <Input label="Destino" {...register("destino")} error={errors.destino?.message} />
-          <Input label="Observaciones" {...register("observaciones")} error={errors.observaciones?.message} />
-          <Select label="Temporada" options={temporadas.map((t) => ({ value: String(t.id), label: t.nombre }))} placeholder="Seleccione una temporada" {...register("temporadaId")} error={errors.temporadaId?.message} />
-          <Select label="Cultivo" options={cultivos.map((c) => ({ value: String(c.id), label: c.nombre }))} placeholder="Seleccione un cultivo" {...register("cultivoId")} error={errors.cultivoId?.message} />
-          <Select label="Lote" options={lotes.map((l) => ({ value: String(l.id), label: l.nombre }))} placeholder="Seleccione un lote" {...register("loteId")} error={errors.loteId?.message} />
-          <div className="flex justify-end gap-3 pt-4">
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormInput label="Fecha" type="date" {...register("fecha")} error={errors.fecha?.message} />
+          <FormInput label="Cantidad" type="number" {...register("cantidad")} error={errors.cantidad?.message} />
+          <FormInput label="Unidad" {...register("unidad")} placeholder="ej. kg, qq, lb" error={errors.unidad?.message} />
+          <FormSelect label="Calidad" options={calidadOptions} placeholder="Seleccione..." {...register("calidad")} error={errors.calidad?.message} />
+          <FormInput label="Destino" {...register("destino")} error={errors.destino?.message} />
+          <FormInput label="Observaciones" {...register("observaciones")} error={errors.observaciones?.message} />
+          <FormSelect label="Temporada" options={temporadas.map((t) => ({ value: String(t.id), label: t.nombre }))} placeholder="Seleccione una temporada" {...register("temporadaId")} error={errors.temporadaId?.message} />
+          <FormSelect label="Cultivo" options={cultivos.map((c) => ({ value: String(c.id), label: c.nombre }))} placeholder="Seleccione un cultivo" {...register("cultivoId")} error={errors.cultivoId?.message} />
+          <FormSelect label="Lote" options={lotes.map((l) => ({ value: String(l.id), label: l.nombre }))} placeholder="Seleccione un lote" {...register("loteId")} error={errors.loteId?.message} />
+          <FormActions>
             <Link to="/app/produccion"><Button type="button" variant="outline">Cancelar</Button></Link>
             <Button type="submit" disabled={isSubmitting}><Save size={16} />{isSubmitting ? "Guardando..." : "Guardar"}</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Card>
     </div>
   )

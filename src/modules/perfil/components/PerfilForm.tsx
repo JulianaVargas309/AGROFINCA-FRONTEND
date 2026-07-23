@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Input } from "@/components/ui/Input"
+import { Form, FormInput, FormActions } from "@/components/form"
 import { Button } from "@/components/ui/Button"
 import { Alert } from "@/components/ui/Alert"
 import { Card } from "@/components/ui/Card"
@@ -52,34 +52,33 @@ function PerfilForm() {
 
       <Card>
         <h3 className="text-sm font-semibold text-stone-700 mb-4">Información Personal</h3>
-        <form onSubmit={handleInfoSubmit(updateProfile)} className="space-y-4">
-          <Input label="Usuario" icon={<User size={18} />} error={infoErrors.nombre?.message} {...registerInfo("nombre")} />
-          <Input label="Número de documento" icon={<IdCard size={18} />} error={infoErrors.documento?.message} {...registerInfo("documento")} />
+        <Form onSubmit={handleInfoSubmit(updateProfile)}>
+          <FormInput label="Usuario" icon={<User size={18} />} error={infoErrors.nombre?.message} {...registerInfo("nombre")} />
+          <FormInput label="Número de documento" icon={<IdCard size={18} />} error={infoErrors.documento?.message} {...registerInfo("documento")} />
           <div className="grid gap-4 sm:grid-cols-2">
-            <Input label="Correo" type="email" icon={<Mail size={18} />} error={infoErrors.correo?.message} {...registerInfo("correo")} />
-            <Input label="Teléfono" icon={<Phone size={18} />} error={infoErrors.telefono?.message} {...registerInfo("telefono")} />
+            <FormInput label="Correo" type="email" icon={<Mail size={18} />} error={infoErrors.correo?.message} {...registerInfo("correo")} />
+            <FormInput label="Teléfono" icon={<Phone size={18} />} error={infoErrors.telefono?.message} {...registerInfo("telefono")} />
           </div>
-          <div className="flex justify-end">
+          <FormActions>
             <Button type="submit" loading={saving}>Guardar Cambios</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Card>
 
       <Card>
         <h3 className="text-sm font-semibold text-stone-700 mb-4">Cambiar Contraseña</h3>
-        <form
+        <Form
           onSubmit={handlePwdSubmit(async (data) => {
             await changePassword(data)
             resetPwd()
           })}
-          className="space-y-4"
         >
-          <Input label="Nueva contraseña" type="password" placeholder="Mínimo 6 caracteres" icon={<Lock size={18} />} error={pwdErrors.newPassword?.message} {...registerPwd("newPassword")} />
-          <Input label="Confirmar contraseña" type="password" placeholder="Repite la nueva contraseña" icon={<Lock size={18} />} error={pwdErrors.confirmPassword?.message} {...registerPwd("confirmPassword")} />
-          <div className="flex justify-end">
+          <FormInput label="Nueva contraseña" type="password" placeholder="Mínimo 6 caracteres" icon={<Lock size={18} />} error={pwdErrors.newPassword?.message} {...registerPwd("newPassword")} />
+          <FormInput label="Confirmar contraseña" type="password" placeholder="Repite la nueva contraseña" icon={<Lock size={18} />} error={pwdErrors.confirmPassword?.message} {...registerPwd("confirmPassword")} />
+          <FormActions>
             <Button type="submit" variant="secondary" loading={saving}>Cambiar Contraseña</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Card>
     </div>
   )

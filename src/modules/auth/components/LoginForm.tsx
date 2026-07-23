@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useNavigate, Link } from "react-router-dom"
 import { IdCard, Lock, LogIn } from "lucide-react"
-import { Input } from "@/components/ui/Input"
+import { Form, FormInput } from "@/components/form"
 import { Button } from "@/components/ui/Button"
 import { Alert } from "@/components/ui/Alert"
 import { loginSchema, type LoginInput } from "../schemas/login.schema"
@@ -32,14 +32,14 @@ function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+    <Form onSubmit={handleSubmit(onSubmit)}>
       {error && (
         <Alert severity="error" onClose={clearError}>
           {error}
         </Alert>
       )}
 
-      <Input
+      <FormInput
         label="Usuario"
         placeholder="Tu usuario"
         autoComplete="username"
@@ -49,7 +49,7 @@ function LoginForm() {
       />
 
       <div>
-        <Input
+        <FormInput
           label="Contraseña"
           type="password"
           placeholder="Tu contraseña"
@@ -59,7 +59,7 @@ function LoginForm() {
           {...register("password")}
         />
         <div className="mt-1 text-right">
-                          <Link to="/recuperar-password" className="text-xs text-emerald-700 hover:text-emerald-800">
+          <Link to="/recuperar-password" className="text-xs text-emerald-700 hover:text-emerald-800">
             ¿Olvidaste tu contraseña?
           </Link>
         </div>
@@ -82,7 +82,7 @@ function LoginForm() {
           Registrarse
         </Link>
       </p>
-    </form>
+    </Form>
   )
 }
 

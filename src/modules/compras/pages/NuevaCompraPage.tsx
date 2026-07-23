@@ -2,9 +2,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Select } from "@/components/ui/Select"
-import { Textarea } from "@/components/ui/Textarea"
+import { Form, FormInput, FormSelect, FormTextarea, FormSection, FormActions, FormError } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { useForm, useFieldArray } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -66,43 +64,43 @@ function NuevaCompraPage() {
       } />
       {error && <Alert severity="error">{error}</Alert>}
       <Card>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <Input label="Número de Factura" {...register("numeroFactura")} error={errors.numeroFactura?.message} />
-          <Input label="Fecha" type="date" {...register("fecha")} error={errors.fecha?.message} />
-          <Select label="Proveedor" options={proveedores.map((p) => ({ value: String(p.id), label: p.nombre }))} placeholder="Seleccione un proveedor" {...register("proveedorId")} error={errors.proveedorId?.message} />
-          <Textarea label="Observaciones" {...register("observaciones")} error={errors.observaciones?.message} />
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormInput label="Número de Factura" {...register("numeroFactura")} error={errors.numeroFactura?.message} />
+          <FormInput label="Fecha" type="date" {...register("fecha")} error={errors.fecha?.message} />
+          <FormSelect label="Proveedor" options={proveedores.map((p) => ({ value: String(p.id), label: p.nombre }))} placeholder="Seleccione un proveedor" {...register("proveedorId")} error={errors.proveedorId?.message} />
+          <FormTextarea label="Observaciones" {...register("observaciones")} error={errors.observaciones?.message} />
 
-          <div className="space-y-2">
+          <FormSection title="Detalles de Compra">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-medium text-stone-700">Detalles de Compra</label>
+              <div />
               <Button type="button" variant="outline" size="sm" onClick={() => append({ productoId: undefined, cantidad: undefined, precioUnitario: undefined })}>
                 <Plus size={14} />Agregar
               </Button>
             </div>
-            {errors.detalles?.message && <p className="text-sm text-red-500">{errors.detalles.message}</p>}
+            {errors.detalles?.message && <FormError message={errors.detalles.message} />}
             {fields.map((field, index) => (
-              <div key={field.id} className="flex items-end gap-2 p-3 bg-stone-50 rounded-lg">
+              <div key={field.id} className="flex items-end gap-2 p-3 border border-stone-200 dark:border-stone-700 rounded-lg">
                 <div className="flex-1">
-                  <Select label="Producto" options={productos.map((p) => ({ value: String(p.id), label: p.nombre }))} placeholder="Seleccione..." {...register(`detalles.${index}.productoId` as const)} error={errors.detalles?.[index]?.productoId?.message} />
+                  <FormSelect label="Producto" options={productos.map((p) => ({ value: String(p.id), label: p.nombre }))} placeholder="Seleccione..." {...register(`detalles.${index}.productoId` as const)} error={errors.detalles?.[index]?.productoId?.message} />
                 </div>
                 <div className="w-24">
-                  <Input label="Cantidad" type="number" {...register(`detalles.${index}.cantidad` as const)} error={errors.detalles?.[index]?.cantidad?.message} />
+                  <FormInput label="Cantidad" type="number" {...register(`detalles.${index}.cantidad` as const)} error={errors.detalles?.[index]?.cantidad?.message} />
                 </div>
                 <div className="w-32">
-                  <Input label="Precio Unit." type="number" step="0.01" {...register(`detalles.${index}.precioUnitario` as const)} error={errors.detalles?.[index]?.precioUnitario?.message} />
+                  <FormInput label="Precio Unit." type="number" step="0.01" {...register(`detalles.${index}.precioUnitario` as const)} error={errors.detalles?.[index]?.precioUnitario?.message} />
                 </div>
                 {fields.length > 1 && (
-                  <button type="button" onClick={() => remove(index)} className="p-2 text-red-500 hover:bg-red-50 rounded-lg cursor-pointer"><Trash2 size={16} /></button>
+                  <button type="button" onClick={() => remove(index)} className="p-2 mb-1 text-red-500 hover:bg-red-50 rounded-lg cursor-pointer"><Trash2 size={16} /></button>
                 )}
               </div>
             ))}
-          </div>
+          </FormSection>
 
-          <div className="flex justify-end gap-3 pt-4">
+          <FormActions>
             <Link to="/app/compras"><Button type="button" variant="outline">Cancelar</Button></Link>
             <Button type="submit" disabled={isSubmitting}><Save size={16} />{isSubmitting ? "Guardando..." : "Guardar"}</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Card>
     </div>
   )

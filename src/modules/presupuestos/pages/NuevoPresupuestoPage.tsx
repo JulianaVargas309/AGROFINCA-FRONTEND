@@ -3,8 +3,7 @@ import { useState } from "react"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Textarea } from "@/components/ui/Textarea"
+import { Form, FormInput, FormTextarea, FormActions } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { useForm, useFieldArray } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -65,14 +64,14 @@ function NuevoPresupuestoPage() {
       } />
       {error && <Alert severity="error">{error}</Alert>}
       <Card>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <Input label="Nombre" {...register("nombre")} error={errors.nombre?.message} />
-          <Textarea label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormInput label="Nombre" {...register("nombre")} error={errors.nombre?.message} />
+          <FormTextarea label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
           <div className="grid grid-cols-2 gap-4">
-            <Input label="Período Inicio" type="date" {...register("periodoInicio")} error={errors.periodoInicio?.message} />
-            <Input label="Período Fin" type="date" {...register("periodoFin")} error={errors.periodoFin?.message} />
+            <FormInput label="Período Inicio" type="date" {...register("periodoInicio")} error={errors.periodoInicio?.message} />
+            <FormInput label="Período Fin" type="date" {...register("periodoFin")} error={errors.periodoFin?.message} />
           </div>
-          <Input label="ID de Finca (opcional)" type="number" {...register("fincaId")} error={errors.fincaId?.message} />
+          <FormInput label="ID de Finca (opcional)" type="number" {...register("fincaId")} error={errors.fincaId?.message} />
 
           <div className="pt-4 border-t border-stone-200">
             <div className="flex items-center justify-between mb-3">
@@ -82,15 +81,15 @@ function NuevoPresupuestoPage() {
               </Button>
             </div>
             {fields.map((field, index) => (
-              <div key={field.id} className="flex items-start gap-3 mb-3 p-3 rounded-lg bg-stone-50">
+              <div key={field.id} className="flex items-start gap-3 mb-3 p-3 rounded-lg border border-stone-200 dark:border-stone-700">
                 <div className="flex-1">
-                  <Input placeholder="Concepto" {...register(`partidas.${index}.concepto`)} error={errors.partidas?.[index]?.concepto?.message} />
+                  <FormInput placeholder="Concepto" {...register(`partidas.${index}.concepto`)} error={errors.partidas?.[index]?.concepto?.message} />
                 </div>
                 <div className="w-36">
-                  <Input placeholder="Monto" type="number" {...register(`partidas.${index}.montoPrevisto`)} error={errors.partidas?.[index]?.montoPrevisto?.message} />
+                  <FormInput placeholder="Monto" type="number" {...register(`partidas.${index}.montoPrevisto`)} error={errors.partidas?.[index]?.montoPrevisto?.message} />
                 </div>
                 <div className="w-32">
-                  <Input placeholder="Categoría" {...register(`partidas.${index}.categoria`)} />
+                  <FormInput placeholder="Categoría" {...register(`partidas.${index}.categoria`)} />
                 </div>
                 {fields.length > 1 && (
                   <button type="button" onClick={() => remove(index)} className="mt-1.5 rounded-lg p-1.5 text-stone-400 hover:bg-red-50 hover:text-red-600 cursor-pointer">
@@ -102,11 +101,11 @@ function NuevoPresupuestoPage() {
             {errors.partidas?.message && <p className="text-sm text-red-600">{errors.partidas.message}</p>}
           </div>
 
-          <div className="flex justify-end gap-3 pt-4">
+          <FormActions>
             <Link to="/app/presupuestos"><Button type="button" variant="outline">Cancelar</Button></Link>
             <Button type="submit" disabled={isSubmitting}><Save size={16} />{isSubmitting ? "Guardando..." : "Guardar"}</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Card>
     </div>
   )

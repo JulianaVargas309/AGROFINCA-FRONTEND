@@ -2,9 +2,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Select } from "@/components/ui/Select"
-import { Textarea } from "@/components/ui/Textarea"
+import { Form, FormInput, FormSelect, FormTextarea, FormActions } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -61,17 +59,17 @@ function NuevoHistorialPage() {
       } />
       {error && <Alert severity="error">{error}</Alert>}
       <Card>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <Select label="Tipo" options={tipoOptions} placeholder="Seleccione..." {...register("tipo")} error={errors.tipo?.message} />
-          <Textarea label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
-          <Input label="Fecha" type="date" {...register("fecha")} error={errors.fecha?.message} />
-          <Textarea label="Observaciones" {...register("observaciones")} error={errors.observaciones?.message} />
-          <Select label="Trabajador" options={trabajadores} placeholder="Seleccione un trabajador" {...register("trabajadorId")} error={errors.trabajadorId?.message} />
-          <div className="flex justify-end gap-3 pt-4">
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormSelect label="Tipo" options={tipoOptions} placeholder="Seleccione..." {...register("tipo")} error={errors.tipo?.message} />
+          <FormTextarea label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
+          <FormInput label="Fecha" type="date" {...register("fecha")} error={errors.fecha?.message} />
+          <FormTextarea label="Observaciones" {...register("observaciones")} error={errors.observaciones?.message} />
+          <FormSelect label="Trabajador" options={trabajadores} placeholder="Seleccione un trabajador" {...register("trabajadorId")} error={errors.trabajadorId?.message} />
+          <FormActions>
             <Link to="/app/historial-laboral"><Button type="button" variant="outline">Cancelar</Button></Link>
             <Button type="submit" disabled={isSubmitting}><Save size={16} />{isSubmitting ? "Guardando..." : "Guardar"}</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Card>
     </div>
   )

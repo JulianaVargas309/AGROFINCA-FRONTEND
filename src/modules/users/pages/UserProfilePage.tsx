@@ -1,8 +1,7 @@
 import { useParams, Link } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Select } from "@/components/ui/Select"
+import { Form, FormInput, FormSelect, FormActions } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { Spinner } from "@/components/ui/Spinner"
 import { Modal } from "@/components/ui/Modal"
@@ -103,49 +102,49 @@ function UserProfilePage() {
       <UserCard user={user} />
 
       <Modal isOpen={showPasswordModal} onClose={() => setShowPasswordModal(false)} title="Cambiar Contraseña">
-        <form onSubmit={passwordForm.handleSubmit(handleChangePassword)} className="space-y-4">
-          <Input
+        <Form onSubmit={passwordForm.handleSubmit(handleChangePassword)}>
+          <FormInput
             label="Contraseña actual"
             type="password"
             icon={<Lock size={18} />}
             error={passwordForm.formState.errors.currentPassword?.message}
             {...passwordForm.register("currentPassword")}
           />
-          <Input
+          <FormInput
             label="Nueva contraseña"
             type="password"
             icon={<Lock size={18} />}
             error={passwordForm.formState.errors.newPassword?.message}
             {...passwordForm.register("newPassword")}
           />
-          <Input
+          <FormInput
             label="Confirmar contraseña"
             type="password"
             icon={<Lock size={18} />}
             error={passwordForm.formState.errors.confirmPassword?.message}
             {...passwordForm.register("confirmPassword")}
           />
-          <div className="flex justify-end gap-3 pt-2">
+          <FormActions>
             <Button type="button" variant="outline" onClick={() => setShowPasswordModal(false)}>Cancelar</Button>
             <Button type="submit" loading={saving}>Guardar</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Modal>
 
       <Modal isOpen={showRolModal} onClose={() => setShowRolModal(false)} title="Cambiar Rol">
-        <form onSubmit={rolForm.handleSubmit(handleChangeRol)} className="space-y-4">
-          <Select
+        <Form onSubmit={rolForm.handleSubmit(handleChangeRol)}>
+          <FormSelect
             label="Nuevo rol"
             options={rolOptions}
             placeholder="Seleccione..."
             error={rolForm.formState.errors.rol?.message}
             {...rolForm.register("rol")}
           />
-          <div className="flex justify-end gap-3 pt-2">
+          <FormActions>
             <Button type="button" variant="outline" onClick={() => setShowRolModal(false)}>Cancelar</Button>
             <Button type="submit" loading={saving}>Guardar</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Modal>
     </div>
   )

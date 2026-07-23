@@ -2,9 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Select } from "@/components/ui/Select"
-import { Textarea } from "@/components/ui/Textarea"
+import { Form, FormInput, FormSelect, FormTextarea, FormActions } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { BackButton } from "@/components/shared/BackButton"
 import { useForm } from "react-hook-form"
@@ -93,32 +91,32 @@ function NuevoJornalPage() {
       <PageHeader title="Nuevo Jornal" description="Registra un jornal" actions={<BackButton to="/app/jornales" />} />
       {error && <Alert severity="error">{error}</Alert>}
       <Card>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Input label="Fecha" type="date" {...register("fecha")} error={errors.fecha?.message} />
-            <Select label="Tipo de Pago" options={tipoPagoOptions} placeholder="Seleccione..." {...register("tipoPago")} error={errors.tipoPago?.message} />
+            <FormInput label="Fecha" type="date" {...register("fecha")} error={errors.fecha?.message} />
+            <FormSelect label="Tipo de Pago" options={tipoPagoOptions} placeholder="Seleccione..." {...register("tipoPago")} error={errors.tipoPago?.message} />
           </div>
-          <Select label="Trabajador" options={trabajadores.map((t) => ({ value: String(t.id), label: t.nombre }))} placeholder="Seleccione un trabajador..." {...register("trabajadorId")} error={errors.trabajadorId?.message} />
+          <FormSelect label="Trabajador" options={trabajadores.map((t) => ({ value: String(t.id), label: t.nombre }))} placeholder="Seleccione un trabajador..." {...register("trabajadorId")} error={errors.trabajadorId?.message} />
           {tipoPago === "DIA" && (
             <div className="grid gap-4 sm:grid-cols-2">
-              <Input label="Valor del Jornal (día)" type="number" step="0.01" {...register("valorDia")} error={errors.valorDia?.message} />
-              <Input label="Cantidad de Días" type="number" min="1" defaultValue="1" {...register("cantidadDias")} error={errors.cantidadDias?.message} />
+              <FormInput label="Valor del Jornal (día)" type="number" step="0.01" {...register("valorDia")} error={errors.valorDia?.message} />
+              <FormInput label="Cantidad de Días" type="number" min="1" defaultValue="1" {...register("cantidadDias")} error={errors.cantidadDias?.message} />
             </div>
           )}
           {tipoPago === "KILO" && (
             <div className="grid gap-4 sm:grid-cols-2">
-              <Input label="Cantidad Recolectada (kg)" type="number" step="0.01" {...register("cantidadKg")} error={errors.cantidadKg?.message} />
-              <Input label="Valor por Kilo" type="number" step="0.01" {...register("valorKilo")} error={errors.valorKilo?.message} />
+              <FormInput label="Cantidad Recolectada (kg)" type="number" step="0.01" {...register("cantidadKg")} error={errors.cantidadKg?.message} />
+              <FormInput label="Valor por Kilo" type="number" step="0.01" {...register("valorKilo")} error={errors.valorKilo?.message} />
             </div>
           )}
-          <Input label="Total a Pagar" type="text" value={totalCalculado > 0 ? `$ ${totalCalculado.toLocaleString("es-CO", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "$ 0"} disabled />
-          <Select label="Lote (opcional)" options={lotes.map((l) => ({ value: String(l.id), label: l.nombre }))} placeholder="Sin lote" {...register("loteId")} error={errors.loteId?.message} />
-          <Textarea label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
-          <div className="flex justify-end gap-3 pt-4">
+          <FormInput label="Total a Pagar" type="text" value={totalCalculado > 0 ? `$ ${totalCalculado.toLocaleString("es-CO", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "$ 0"} disabled />
+          <FormSelect label="Lote (opcional)" options={lotes.map((l) => ({ value: String(l.id), label: l.nombre }))} placeholder="Sin lote" {...register("loteId")} error={errors.loteId?.message} />
+          <FormTextarea label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
+          <FormActions>
             <Button type="button" variant="outline" onClick={() => navigate("/app/jornales")}>Cancelar</Button>
             <Button type="submit" disabled={isSubmitting}><Save size={16} />{isSubmitting ? "Guardando..." : "Guardar"}</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Card>
     </div>
   )

@@ -2,9 +2,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Select } from "@/components/ui/Select"
-import { Textarea } from "@/components/ui/Textarea"
+import { Form, FormInput, FormSelect, FormTextarea, FormActions } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -62,27 +60,27 @@ function NuevoEventoPage() {
       />
       {error && <Alert severity="error">{error}</Alert>}
       <Card>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <Input label="Título" {...register("titulo")} error={errors.titulo?.message} />
-          <Textarea label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
-          <Select label="Tipo" options={tipoOptions} placeholder="Seleccione..." {...register("tipo")} error={errors.tipo?.message} />
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormInput label="Título" {...register("titulo")} error={errors.titulo?.message} />
+          <FormTextarea label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
+          <FormSelect label="Tipo" options={tipoOptions} placeholder="Seleccione..." {...register("tipo")} error={errors.tipo?.message} />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input label="Fecha de Inicio" type="date" {...register("fechaInicio")} error={errors.fechaInicio?.message} />
-            <Input label="Fecha de Fin" type="date" {...register("fechaFin")} error={errors.fechaFin?.message} />
+            <FormInput label="Fecha de Inicio" type="date" {...register("fechaInicio")} error={errors.fechaInicio?.message} />
+            <FormInput label="Fecha de Fin" type="date" {...register("fechaFin")} error={errors.fechaFin?.message} />
           </div>
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" {...register("todoElDia")} className="rounded border-stone-300" />
             Todo el día
           </label>
-          <Select label="Estado" options={estadoOptions} placeholder="Seleccione..." {...register("estado")} error={errors.estado?.message} />
-          <Select label="Prioridad" options={prioridadOptions} placeholder="Seleccione..." {...register("prioridad")} error={errors.prioridad?.message} />
-          <Input label="Color (hex)" type="color" {...register("color")} />
-          <Input label="Ubicación" {...register("ubicacion")} error={errors.ubicacion?.message} />
-          <div className="flex justify-end gap-3 pt-4">
+          <FormSelect label="Estado" options={estadoOptions} placeholder="Seleccione..." {...register("estado")} error={errors.estado?.message} />
+          <FormSelect label="Prioridad" options={prioridadOptions} placeholder="Seleccione..." {...register("prioridad")} error={errors.prioridad?.message} />
+          <FormInput label="Color (hex)" type="color" {...register("color")} />
+          <FormInput label="Ubicación" {...register("ubicacion")} error={errors.ubicacion?.message} />
+          <FormActions>
             <Link to="/app/calendario"><Button type="button" variant="outline">Cancelar</Button></Link>
             <Button type="submit" disabled={isSubmitting}><Save size={16} />{isSubmitting ? "Guardando..." : "Guardar"}</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Card>
     </div>
   )

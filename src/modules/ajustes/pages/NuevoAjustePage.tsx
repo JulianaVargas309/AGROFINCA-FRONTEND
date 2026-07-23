@@ -2,9 +2,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Select } from "@/components/ui/Select"
-import { Textarea } from "@/components/ui/Textarea"
+import { Form, FormInput, FormSelect, FormTextarea, FormActions } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -58,16 +56,16 @@ function NuevoAjustePage() {
       } />
       {error && <Alert severity="error">{error}</Alert>}
       <Card>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <Select label="Tipo" options={tipoOptions} placeholder="Seleccione..." {...register("tipo")} error={errors.tipo?.message} />
-          <Input label="Cantidad" type="number" {...register("cantidad")} error={errors.cantidad?.message} />
-          <Textarea label="Motivo" {...register("motivo")} error={errors.motivo?.message} />
-          <Select label="Producto" options={productos} placeholder="Seleccione un producto" {...register("productoId")} error={errors.productoId?.message} />
-          <div className="flex justify-end gap-3 pt-4">
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormSelect label="Tipo" options={tipoOptions} placeholder="Seleccione..." {...register("tipo")} error={errors.tipo?.message} />
+          <FormInput label="Cantidad" type="number" {...register("cantidad")} error={errors.cantidad?.message} />
+          <FormTextarea label="Motivo" {...register("motivo")} error={errors.motivo?.message} />
+          <FormSelect label="Producto" options={productos} placeholder="Seleccione un producto" {...register("productoId")} error={errors.productoId?.message} />
+          <FormActions>
             <Link to="/app/ajustes"><Button type="button" variant="outline">Cancelar</Button></Link>
             <Button type="submit" disabled={isSubmitting}><Save size={16} />{isSubmitting ? "Guardando..." : "Guardar"}</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Card>
     </div>
   )

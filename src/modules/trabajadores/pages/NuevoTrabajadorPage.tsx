@@ -2,9 +2,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Select } from "@/components/ui/Select"
-import { Textarea } from "@/components/ui/Textarea"
+import { Form, FormInput, FormSelect, FormTextarea, FormActions } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -49,29 +47,29 @@ function NuevoTrabajadorPage() {
       <PageHeader title="Nuevo Trabajador" description="Registra un nuevo trabajador" actions={<BackButton to="/app/trabajadores" />} />
       {error && <Alert severity="error">{error}</Alert>}
       <Card>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Input label="Nombre" {...register("nombre")} error={errors.nombre?.message} />
-            <Input label="Apellido" {...register("apellido")} error={errors.apellido?.message} />
+            <FormInput label="Nombre" {...register("nombre")} error={errors.nombre?.message} />
+            <FormInput label="Apellido" {...register("apellido")} error={errors.apellido?.message} />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Input label="Documento" {...register("documento")} error={errors.documento?.message} />
-            <Input label="Teléfono" {...register("telefono")} error={errors.telefono?.message} />
+            <FormInput label="Documento" {...register("documento")} error={errors.documento?.message} />
+            <FormInput label="Teléfono" {...register("telefono")} error={errors.telefono?.message} />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Input label="Dirección" {...register("direccion")} error={errors.direccion?.message} />
-            <Input label="Fecha de Ingreso" type="date" {...register("fechaIngreso")} error={errors.fechaIngreso?.message} />
+            <FormInput label="Dirección" {...register("direccion")} error={errors.direccion?.message} />
+            <FormInput label="Fecha de Ingreso" type="date" {...register("fechaIngreso")} error={errors.fechaIngreso?.message} />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Select label="Cargo" options={cargoOptions} placeholder="Seleccione..." {...register("cargo")} error={errors.cargo?.message} />
-            <Input label="Salario" type="number" {...register("salario")} error={errors.salario?.message} />
+            <FormSelect label="Cargo" options={cargoOptions} placeholder="Seleccione..." {...register("cargo")} error={errors.cargo?.message} />
+            <FormInput label="Salario" type="number" {...register("salario")} error={errors.salario?.message} />
           </div>
-          <Textarea label="Observaciones" {...register("observaciones")} error={errors.observaciones?.message} />
-          <div className="flex justify-end gap-3 pt-4">
+          <FormTextarea label="Observaciones" {...register("observaciones")} error={errors.observaciones?.message} />
+          <FormActions>
             <Link to="/app/trabajadores"><Button type="button" variant="outline">Cancelar</Button></Link>
             <Button type="submit" disabled={isSubmitting}><Save size={16} />{isSubmitting ? "Guardando..." : "Guardar"}</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Card>
     </div>
   )

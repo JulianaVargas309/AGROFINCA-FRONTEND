@@ -1,8 +1,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Input } from "@/components/ui/Input"
-import { Textarea } from "@/components/ui/Textarea"
-import { Select } from "@/components/ui/Select"
+import { Form, FormInput, FormTextarea, FormSelect, FormActions } from "@/components/form"
 import { Button } from "@/components/ui/Button"
 import { Alert } from "@/components/ui/Alert"
 import { createBitacoraSchema, updateBitacoraSchema, ACTIVIDAD_OPTIONS, type CreateBitacoraFormData, type UpdateBitacoraFormData } from "../schemas/bitacora.schema"
@@ -74,36 +72,36 @@ function BitacoraForm({ defaultValues, onSubmit, loading, error, onClearError, s
   }, [loteIdWatch])
 
   return (
-    <form onSubmit={handleSubmit((data) => onSubmit(data as CreateBitacoraFormData))} className="space-y-5">
+    <Form onSubmit={handleSubmit((data) => onSubmit(data as CreateBitacoraFormData))}>
       {error && <Alert severity="error" onClose={onClearError}>{error}</Alert>}
 
       <div className="grid grid-cols-2 gap-4">
-        <Input label="Fecha" type="date" icon={<Calendar size={18} />} error={errors.fecha?.message} {...register("fecha")} />
-        <Select label="Actividad" options={ACTIVIDAD_OPTIONS} error={errors.actividad?.message} {...register("actividad")} />
+        <FormInput label="Fecha" type="date" icon={<Calendar size={18} />} error={errors.fecha?.message} {...register("fecha")} />
+        <FormSelect label="Actividad" options={ACTIVIDAD_OPTIONS} error={errors.actividad?.message} {...register("actividad")} />
       </div>
 
-      <Textarea label="Descripción" placeholder="Describe la actividad realizada..." error={errors.descripcion?.message} rows={3} {...register("descripcion")} />
+      <FormTextarea label="Descripción" placeholder="Describe la actividad realizada..." error={errors.descripcion?.message} rows={3} {...register("descripcion")} />
 
-      <Select label="Lote" options={lotes.map((l) => ({ value: String(l.id), label: l.nombre }))} placeholder="Selecciona un lote" error={errors.loteId?.message} {...register("loteId")} />
+      <FormSelect label="Lote" options={lotes.map((l) => ({ value: String(l.id), label: l.nombre }))} placeholder="Selecciona un lote" error={errors.loteId?.message} {...register("loteId")} />
 
       {cultivosF.length > 0 && (
-        <Select label="Cultivo (opcional)" options={cultivosF.map((c) => ({ value: String(c.id), label: `${c.nombre} (${c.tipo})` }))} placeholder="Todos" {...register("cultivoId")} />
+        <FormSelect label="Cultivo (opcional)" options={cultivosF.map((c) => ({ value: String(c.id), label: `${c.nombre} (${c.tipo})` }))} placeholder="Todos" {...register("cultivoId")} />
       )}
 
-      <Select label="Producto usado (opcional)" options={productosF.map((p) => ({ value: String(p.id), label: p.nombre }))} placeholder="Ninguno" {...register("productoId")} />
+      <FormSelect label="Producto usado (opcional)" options={productosF.map((p) => ({ value: String(p.id), label: p.nombre }))} placeholder="Ninguno" {...register("productoId")} />
 
       <div className="grid grid-cols-3 gap-4">
-        <Input label="Cantidad" type="number" step="0.01" error={errors.cantidad?.message} {...register("cantidad")} />
-        <Input label="Unidad" placeholder="kg, L..." error={errors.unidadMedida?.message} {...register("unidadMedida")} />
-        <Input label="Costo ($)" type="number" step="0.01" error={errors.costo?.message} {...register("costo")} />
+        <FormInput label="Cantidad" type="number" step="0.01" error={errors.cantidad?.message} {...register("cantidad")} />
+        <FormInput label="Unidad" placeholder="kg, L..." error={errors.unidadMedida?.message} {...register("unidadMedida")} />
+        <FormInput label="Costo ($)" type="number" step="0.01" error={errors.costo?.message} {...register("costo")} />
       </div>
 
-      <Textarea label="Observaciones" placeholder="Notas adicionales..." error={errors.observaciones?.message} rows={2} {...register("observaciones")} />
+      <FormTextarea label="Observaciones" placeholder="Notas adicionales..." error={errors.observaciones?.message} rows={2} {...register("observaciones")} />
 
-      <div className="flex justify-end gap-3 pt-2">
+      <FormActions>
         <Button type="submit" loading={loading}>{submitLabel}</Button>
-      </div>
-    </form>
+      </FormActions>
+    </Form>
   )
 }
 

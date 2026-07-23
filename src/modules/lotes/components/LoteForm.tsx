@@ -1,8 +1,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Input } from "@/components/ui/Input"
-import { Textarea } from "@/components/ui/Textarea"
-import { Select } from "@/components/ui/Select"
+import { Form, FormInput, FormTextarea, FormSelect, FormActions } from "@/components/form"
 import { Button } from "@/components/ui/Button"
 import { Alert } from "@/components/ui/Alert"
 import { createLoteSchema, updateLoteSchema, type CreateLoteFormData, type UpdateLoteFormData } from "../schemas/lote.schema"
@@ -60,14 +58,14 @@ function LoteForm({
   }, [showFincaSelector])
 
   return (
-    <form onSubmit={handleSubmit((data) => onSubmit(data as CreateLoteFormData))} className="space-y-5">
+    <Form onSubmit={handleSubmit((data) => onSubmit(data as CreateLoteFormData))}>
       {error && (
         <Alert severity="error" onClose={onClearError}>
           {error}
         </Alert>
       )}
 
-      <Input
+      <FormInput
         label="Nombre del lote"
         placeholder="Ej: Lote 1 - Café"
         icon={<Sprout size={18} />}
@@ -76,7 +74,7 @@ function LoteForm({
       />
 
       {showFincaSelector && (
-        <Select
+        <FormSelect
           label="Finca"
           options={fincas.map((f) => ({ value: String(f.id), label: f.nombre }))}
           placeholder={loadingFincas ? "Cargando..." : "Selecciona una finca"}
@@ -86,7 +84,7 @@ function LoteForm({
         />
       )}
 
-      <Input
+      <FormInput
         label="Área (hectáreas)"
         type="number"
         step="0.01"
@@ -96,7 +94,7 @@ function LoteForm({
         {...register("area")}
       />
 
-      <Textarea
+      <FormTextarea
         label="Descripción"
         placeholder="Describe el lote..."
         error={errors.descripcion?.message}
@@ -104,12 +102,12 @@ function LoteForm({
         {...register("descripcion")}
       />
 
-      <div className="flex justify-end gap-3 pt-2">
+      <FormActions>
         <Button type="submit" loading={loading}>
           {submitLabel}
         </Button>
-      </div>
-    </form>
+      </FormActions>
+    </Form>
   )
 }
 

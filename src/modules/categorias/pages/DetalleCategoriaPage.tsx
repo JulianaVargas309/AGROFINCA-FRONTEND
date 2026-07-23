@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
+import { Form, FormInput, FormActions } from "@/components/form"
 import { Badge } from "@/components/ui/Badge"
 import { Alert } from "@/components/ui/Alert"
 import { Spinner } from "@/components/ui/Spinner"
@@ -82,14 +82,14 @@ function DetalleCategoriaPage() {
       {submitError && <Alert severity="error">{submitError}</Alert>}
       {editing ? (
         <Card>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <Input label="Nombre" {...register("nombre")} error={errors.nombre?.message} />
-            <Input label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
-            <div className="flex justify-end gap-3 pt-4">
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <FormInput label="Nombre" {...register("nombre")} error={errors.nombre?.message} />
+            <FormInput label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
+            <FormActions>
               <Button type="button" variant="outline" onClick={() => setEditing(false)}>Cancelar</Button>
               <Button type="submit" disabled={isSubmitting}><Save size={16} />{isSubmitting ? "Guardando..." : "Guardar"}</Button>
-            </div>
-          </form>
+            </FormActions>
+          </Form>
         </Card>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

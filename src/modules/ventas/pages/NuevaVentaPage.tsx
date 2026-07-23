@@ -2,9 +2,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Select } from "@/components/ui/Select"
-import { Textarea } from "@/components/ui/Textarea"
+import { Form, FormInput, FormSelect, FormTextarea, FormActions } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -54,19 +52,19 @@ function NuevaVentaPage() {
       } />
       {error && <Alert severity="error">{error}</Alert>}
       <Card>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <Input label="Fecha" type="date" {...register("fecha")} error={errors.fecha?.message} />
-          <Input label="Cliente" {...register("cliente")} error={errors.cliente?.message} />
-          <Select label="Tipo de Producto" options={tipoProductoOptions} placeholder="Seleccione..." {...register("tipoProducto")} error={errors.tipoProducto?.message} />
-          <Input label="Cantidad" type="number" {...register("cantidad")} error={errors.cantidad?.message} />
-          <Select label="Unidad de Medida" options={unidadOptions} placeholder="Seleccione..." {...register("unidadMedida")} error={errors.unidadMedida?.message} />
-          <Input label="Precio Unitario" type="number" {...register("precioUnitario")} error={errors.precioUnitario?.message} />
-          <Textarea label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
-          <div className="flex justify-end gap-3 pt-4">
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormInput label="Fecha" type="date" {...register("fecha")} error={errors.fecha?.message} />
+          <FormInput label="Cliente" {...register("cliente")} error={errors.cliente?.message} />
+          <FormSelect label="Tipo de Producto" options={tipoProductoOptions} placeholder="Seleccione..." {...register("tipoProducto")} error={errors.tipoProducto?.message} />
+          <FormInput label="Cantidad" type="number" {...register("cantidad")} error={errors.cantidad?.message} />
+          <FormSelect label="Unidad de Medida" options={unidadOptions} placeholder="Seleccione..." {...register("unidadMedida")} error={errors.unidadMedida?.message} />
+          <FormInput label="Precio Unitario" type="number" {...register("precioUnitario")} error={errors.precioUnitario?.message} />
+          <FormTextarea label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
+          <FormActions>
             <Link to="/app/ventas"><Button type="button" variant="outline">Cancelar</Button></Link>
             <Button type="submit" disabled={isSubmitting}><Save size={16} />{isSubmitting ? "Guardando..." : "Guardar"}</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Card>
     </div>
   )

@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
+import { Form, FormInput } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { authService } from "../services/auth.service"
 import { Mail, ArrowLeft } from "lucide-react"
@@ -71,10 +71,10 @@ function RecuperarPasswordPage() {
       </div>
 
       <Card>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <Form onSubmit={handleSubmit(onSubmit)}>
           {error && <Alert severity="error">{error}</Alert>}
 
-          <Input
+          <FormInput
             label="Número de Documento"
             placeholder="Tu documento"
             error={errors.documento?.message}
@@ -84,7 +84,7 @@ function RecuperarPasswordPage() {
           <Button type="submit" className="w-full" disabled={loading} loading={loading}>
             {loading ? "Enviando..." : "Enviar Instrucciones"}
           </Button>
-        </form>
+        </Form>
       </Card>
 
       <p className="text-center text-sm text-stone-600">

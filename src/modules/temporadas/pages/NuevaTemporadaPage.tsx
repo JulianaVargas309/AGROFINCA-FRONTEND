@@ -2,8 +2,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Select } from "@/components/ui/Select"
+import { Form, FormInput, FormSelect, FormActions } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -61,17 +60,17 @@ function NuevaTemporadaPage() {
       />
       {error && <Alert severity="error">{error}</Alert>}
       <Card>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <Input label="Nombre" {...register("nombre")} error={errors.nombre?.message} />
-          <Input label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
-          <Input label="Fecha de Inicio" type="date" {...register("fechaInicio")} error={errors.fechaInicio?.message} />
-          <Input label="Fecha de Fin" type="date" {...register("fechaFin")} error={errors.fechaFin?.message} />
-          <Select label="Finca" options={fincas.map((f) => ({ value: String(f.id), label: f.nombre }))} placeholder="Seleccione una finca" {...register("fincaId")} error={errors.fincaId?.message} />
-          <div className="flex justify-end gap-3 pt-4">
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormInput label="Nombre" {...register("nombre")} error={errors.nombre?.message} />
+          <FormInput label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
+          <FormInput label="Fecha de Inicio" type="date" {...register("fechaInicio")} error={errors.fechaInicio?.message} />
+          <FormInput label="Fecha de Fin" type="date" {...register("fechaFin")} error={errors.fechaFin?.message} />
+          <FormSelect label="Finca" options={fincas.map((f) => ({ value: String(f.id), label: f.nombre }))} placeholder="Seleccione una finca" {...register("fincaId")} error={errors.fincaId?.message} />
+          <FormActions>
             <Link to="/app/temporadas"><Button type="button" variant="outline">Cancelar</Button></Link>
             <Button type="submit" disabled={isSubmitting}><Save size={16} />{isSubmitting ? "Guardando..." : "Guardar"}</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Card>
     </div>
   )

@@ -1,8 +1,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Input } from "@/components/ui/Input"
-import { Textarea } from "@/components/ui/Textarea"
-import { Select } from "@/components/ui/Select"
+import { Form, FormInput, FormTextarea, FormSelect, FormActions } from "@/components/form"
 import { Button } from "@/components/ui/Button"
 import { Alert } from "@/components/ui/Alert"
 import { createProductoSchema, updateProductoSchema, type CreateProductoFormData, type UpdateProductoFormData } from "../schemas/inventario.schema"
@@ -39,22 +37,22 @@ function InventarioForm({ defaultValues, onSubmit, loading, error, onClearError,
   })
 
   return (
-    <form onSubmit={handleSubmit((data) => onSubmit(data as CreateProductoFormData))} className="space-y-5">
+    <Form onSubmit={handleSubmit((data) => onSubmit(data as CreateProductoFormData))}>
       {error && <Alert severity="error" onClose={onClearError}>{error}</Alert>}
 
-      <Input label="Nombre del producto" placeholder="Ej: Fertilizante NPK" icon={<Package size={18} />} error={errors.nombre?.message} {...register("nombre")} />
-      <Textarea label="Descripción" placeholder="Describe el producto..." error={errors.descripcion?.message} rows={2} {...register("descripcion")} />
-      <Select label="Categoría" options={CATEGORIA_PRODUCTO_OPTIONS} placeholder="Selecciona una categoría" error={errors.categoria?.message} {...register("categoria")} />
-      <Select label="Unidad de medida" options={UNIDAD_MEDIDA_OPTIONS} error={errors.unidadMedida?.message} {...register("unidadMedida")} />
+      <FormInput label="Nombre del producto" placeholder="Ej: Fertilizante NPK" icon={<Package size={18} />} error={errors.nombre?.message} {...register("nombre")} />
+      <FormTextarea label="Descripción" placeholder="Describe el producto..." error={errors.descripcion?.message} rows={2} {...register("descripcion")} />
+      <FormSelect label="Categoría" options={CATEGORIA_PRODUCTO_OPTIONS} placeholder="Selecciona una categoría" error={errors.categoria?.message} {...register("categoria")} />
+      <FormSelect label="Unidad de medida" options={UNIDAD_MEDIDA_OPTIONS} error={errors.unidadMedida?.message} {...register("unidadMedida")} />
       <div className="grid grid-cols-2 gap-4">
-        <Input label="Stock actual" type="number" error={errors.stockActual?.message} {...register("stockActual")} />
-        <Input label="Stock mínimo" type="number" error={errors.stockMinimo?.message} {...register("stockMinimo")} />
+        <FormInput label="Stock actual" type="number" error={errors.stockActual?.message} {...register("stockActual")} />
+        <FormInput label="Stock mínimo" type="number" error={errors.stockMinimo?.message} {...register("stockMinimo")} />
       </div>
-      <Input label="Precio unitario" type="number" step="0.01" placeholder="0.00" error={errors.precioUnitario?.message} {...register("precioUnitario")} />
-      <div className="flex justify-end gap-3 pt-2">
+      <FormInput label="Precio unitario" type="number" step="0.01" placeholder="0.00" error={errors.precioUnitario?.message} {...register("precioUnitario")} />
+      <FormActions>
         <Button type="submit" loading={loading}>{submitLabel}</Button>
-      </div>
-    </form>
+      </FormActions>
+    </Form>
   )
 }
 

@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Input } from "@/components/ui/Input"
-import { Textarea } from "@/components/ui/Textarea"
+import { Form, FormInput, FormTextarea, FormActions } from "@/components/form"
 import { Button } from "@/components/ui/Button"
 import { Alert } from "@/components/ui/Alert"
 import { createFincaSchema, updateFincaSchema, type CreateFincaFormData, type UpdateFincaFormData } from "../schemas/finca.schema"
@@ -44,14 +43,14 @@ function FincaForm({
   })
 
   return (
-    <form onSubmit={handleSubmit((data) => onSubmit(data as CreateFincaFormData))} className="space-y-5">
+    <Form onSubmit={handleSubmit((data) => onSubmit(data as CreateFincaFormData))}>
       {error && (
         <Alert severity="error" onClose={onClearError}>
           {error}
         </Alert>
       )}
 
-      <Input
+      <FormInput
         label="Nombre de la finca"
         placeholder="Ej: Finca El Paraíso"
         icon={<Sprout size={18} />}
@@ -59,7 +58,7 @@ function FincaForm({
         {...register("nombre")}
       />
 
-      <Input
+      <FormInput
         label="Ubicación"
         placeholder="Ej: Vereda La Esperanza, km 5"
         icon={<MapPin size={18} />}
@@ -67,7 +66,7 @@ function FincaForm({
         {...register("ubicacion")}
       />
 
-      <Input
+      <FormInput
         label="Hectáreas"
         type="number"
         step="0.01"
@@ -77,7 +76,7 @@ function FincaForm({
         {...register("hectareas")}
       />
 
-      <Textarea
+      <FormTextarea
         label="Descripción"
         placeholder="Describe la finca..."
         error={errors.descripcion?.message}
@@ -85,12 +84,12 @@ function FincaForm({
         {...register("descripcion")}
       />
 
-      <div className="flex justify-end gap-3 pt-2">
+      <FormActions>
         <Button type="submit" loading={loading}>
           {submitLabel}
         </Button>
-      </div>
-    </form>
+      </FormActions>
+    </Form>
   )
 }
 

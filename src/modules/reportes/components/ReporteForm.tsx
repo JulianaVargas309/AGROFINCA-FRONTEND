@@ -2,8 +2,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Button } from "@/components/ui/Button"
-import { Select } from "@/components/ui/Select"
-import { Input } from "@/components/ui/Input"
+import { Form, FormInput, FormSelect, FormActions } from "@/components/form"
 import { REPORT_TYPES, type ReportType } from "../types/reporte.types"
 import type { Option } from "@/types"
 
@@ -37,8 +36,8 @@ function ReporteForm({ onSubmit, loading }: ReporteFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
-      <Select
+    <Form onSubmit={handleSubmit(handleFormSubmit)}>
+      <FormSelect
         label="Tipo de Reporte"
         options={reportTypeOptions}
         placeholder="Seleccione..."
@@ -46,15 +45,15 @@ function ReporteForm({ onSubmit, loading }: ReporteFormProps) {
         error={errors.tipo?.message}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Input label="Fecha Desde" type="date" {...register("fechaDesde")} error={errors.fechaDesde?.message} />
-        <Input label="Fecha Hasta" type="date" {...register("fechaHasta")} error={errors.fechaHasta?.message} />
+        <FormInput label="Fecha Desde" type="date" {...register("fechaDesde")} error={errors.fechaDesde?.message} />
+        <FormInput label="Fecha Hasta" type="date" {...register("fechaHasta")} error={errors.fechaHasta?.message} />
       </div>
-      <div className="flex justify-end pt-4">
+      <FormActions>
         <Button type="submit" disabled={loading}>
           {loading ? "Generando..." : "Generar Reporte"}
         </Button>
-      </div>
-    </form>
+      </FormActions>
+    </Form>
   )
 }
 

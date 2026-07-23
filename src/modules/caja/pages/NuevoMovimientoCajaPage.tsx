@@ -2,9 +2,7 @@ import { useNavigate, useParams, useSearchParams, Link } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Textarea } from "@/components/ui/Textarea"
-import { Select } from "@/components/ui/Select"
+import { Form, FormInput, FormSelect, FormTextarea, FormActions } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -85,8 +83,8 @@ function NuevoMovimientoCajaPage() {
       />
       {error && <Alert severity="error">{error}</Alert>}
       <Card>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <Select
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormSelect
             label="Caja"
             options={cajaOptions}
             placeholder="Seleccione la caja..."
@@ -94,7 +92,7 @@ function NuevoMovimientoCajaPage() {
             error={errors.cajaId?.message}
             disabled={!!cajaId}
           />
-          <Select
+          <FormSelect
             label="Tipo de Movimiento"
             options={tipoOptions}
             placeholder="Seleccione el tipo..."
@@ -102,26 +100,26 @@ function NuevoMovimientoCajaPage() {
             error={errors.tipo?.message}
             disabled={!!tipoQuery}
           />
-          <Input
+          <FormInput
             label="Monto"
             type="number"
             step="0.01"
             {...register("monto")}
             error={errors.monto?.message}
           />
-          <Input
+          <FormInput
             label="Concepto"
             {...register("concepto")}
             error={errors.concepto?.message}
             placeholder="Describe el motivo del movimiento"
           />
-          <Input
+          <FormInput
             label="Referencia (opcional)"
             {...register("referencia")}
             error={errors.referencia?.message}
             placeholder="Factura, recibo, etc."
           />
-          <div className="flex justify-end gap-3 pt-4">
+          <FormActions>
             <Link to={cajaId ? `/app/caja/${cajaId}` : "/app/caja"}>
               <Button type="button" variant="outline">Cancelar</Button>
             </Link>
@@ -129,8 +127,8 @@ function NuevoMovimientoCajaPage() {
               <Save size={16} />
               {isSubmitting ? "Guardando..." : "Guardar"}
             </Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Card>
     </div>
   )

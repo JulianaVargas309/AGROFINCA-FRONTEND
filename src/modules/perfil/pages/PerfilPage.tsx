@@ -2,7 +2,7 @@ import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
+import { Form, FormInput, FormActions } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { Spinner } from "@/components/ui/Spinner"
 import { Modal } from "@/components/ui/Modal"
@@ -130,8 +130,8 @@ function PerfilPage() {
       </Modal>
 
       <Modal isOpen={showPasswordModal} onClose={() => setShowPasswordModal(false)} title="Cambiar Contraseña">
-        <form onSubmit={handleSubmit(handleChangePassword)} className="space-y-4">
-          <Input
+        <Form onSubmit={handleSubmit(handleChangePassword)}>
+          <FormInput
             label="Nueva contraseña"
             type="password"
             placeholder="Mínimo 6 caracteres"
@@ -139,7 +139,7 @@ function PerfilPage() {
             error={errors.newPassword?.message}
             {...register("newPassword")}
           />
-          <Input
+          <FormInput
             label="Confirmar contraseña"
             type="password"
             placeholder="Repite la nueva contraseña"
@@ -147,11 +147,11 @@ function PerfilPage() {
             error={errors.confirmPassword?.message}
             {...register("confirmPassword")}
           />
-          <div className="flex justify-end gap-3 pt-2">
+          <FormActions>
             <Button type="button" variant="outline" onClick={() => setShowPasswordModal(false)}>Cancelar</Button>
             <Button type="submit" loading={saving}>Cambiar Contraseña</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Modal>
     </div>
   )

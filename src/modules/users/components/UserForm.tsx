@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Input } from "@/components/ui/Input"
-import { Select } from "@/components/ui/Select"
+import { Form, FormInput, FormSelect, FormActions } from "@/components/form"
 import { Button } from "@/components/ui/Button"
 import { Alert } from "@/components/ui/Alert"
 import { Card } from "@/components/ui/Card"
@@ -47,33 +46,27 @@ function UserForm({ defaultValues, onSubmit, isEdit }: UserFormProps) {
   return (
     <Card>
       {error && <Alert severity="error" className="mb-4">{error}</Alert>}
-      <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
+      <Form onSubmit={handleSubmit(handleFormSubmit)}>
         <div className="grid gap-4 sm:grid-cols-2">
-          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-          <Input label="Nombre" {...register("nombre")} error={(errors as any).nombre?.message} />
-          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-          <Input label="Apellido" {...register("apellido")} error={(errors as any).apellido?.message} />
+          <FormInput label="Nombre" {...register("nombre")} error={(errors as any).nombre?.message} />
+          <FormInput label="Apellido" {...register("apellido")} error={(errors as any).apellido?.message} />
         </div>
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        <Input label="Documento" icon={<IdCard size={18} />} {...register("documento", { onChange: (e) => { if (!isEdit && !passwordTouched.current) { setValue("password" as any, e.target.value as any) } } })} error={(errors as any).documento?.message} disabled={isEdit} helperText="Se usa como usuario para iniciar sesión. La contraseña se autocompleta con este valor." />
+        <FormInput label="Documento" icon={<IdCard size={18} />} {...register("documento", { onChange: (e) => { if (!isEdit && !passwordTouched.current) { setValue("password" as any, e.target.value as any) } } })} error={(errors as any).documento?.message} disabled={isEdit} helperText="Se usa como usuario para iniciar sesión. La contraseña se autocompleta con este valor." />
         <div className="grid gap-4 sm:grid-cols-2">
-          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-          <Input label="Correo" type="email" icon={<Mail size={18} />} {...register("correo")} error={(errors as any).correo?.message} />
-          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-          <Input label="Teléfono" icon={<Phone size={18} />} {...register("telefono")} error={(errors as any).telefono?.message} />
+          <FormInput label="Correo" type="email" icon={<Mail size={18} />} {...register("correo")} error={(errors as any).correo?.message} />
+          <FormInput label="Teléfono" icon={<Phone size={18} />} {...register("telefono")} error={(errors as any).telefono?.message} />
         </div>
         {!isEdit && (
-          <Input label="Contraseña" type="password" icon={<Lock size={18} />} autoComplete="new-password" {...register("password", { onChange: () => { passwordTouched.current = true } })} error={(errors as any).password?.message} helperText="Por defecto se asigna el número de documento. Si la cambias manualmente, el documento ya no la sobreescribirá." />
+          <FormInput label="Contraseña" type="password" icon={<Lock size={18} />} autoComplete="new-password" {...register("password", { onChange: () => { passwordTouched.current = true } })} error={(errors as any).password?.message} helperText="Por defecto se asigna el número de documento. Si la cambias manualmente, el documento ya no la sobreescribirá." />
         )}
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        <Select label="Rol" options={rolOptions} placeholder="Seleccione..." {...register("rol")} error={(errors as any).rol?.message} />
-        <div className="flex justify-end gap-3 pt-4">
+        <FormSelect label="Rol" options={rolOptions} placeholder="Seleccione..." {...register("rol")} error={(errors as any).rol?.message} />
+        <FormActions>
           <Button type="submit" disabled={isSubmitting}>
             <Save size={16} />
             {isSubmitting ? "Guardando..." : isEdit ? "Actualizar" : "Guardar"}
           </Button>
-        </div>
-      </form>
+        </FormActions>
+      </Form>
     </Card>
   )
 }

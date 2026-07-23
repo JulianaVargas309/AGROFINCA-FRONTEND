@@ -2,9 +2,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Select } from "@/components/ui/Select"
-import { Textarea } from "@/components/ui/Textarea"
+import { Form, FormInput, FormSelect, FormTextarea, FormActions } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -85,28 +83,28 @@ function NuevaActividadPage() {
       } />
       {error && <Alert severity="error">{error}</Alert>}
       <Card>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <Input label="Título" {...register("titulo")} error={errors.titulo?.message} />
-          <Textarea label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormInput label="Título" {...register("titulo")} error={errors.titulo?.message} />
+          <FormTextarea label="Descripción" {...register("descripcion")} error={errors.descripcion?.message} />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Select label="Estado" options={estadoOptions} placeholder="Seleccione..." {...register("estado")} error={errors.estado?.message} />
-            <Select label="Prioridad" options={prioridadOptions} placeholder="Seleccione..." {...register("prioridad")} error={errors.prioridad?.message} />
+            <FormSelect label="Estado" options={estadoOptions} placeholder="Seleccione..." {...register("estado")} error={errors.estado?.message} />
+            <FormSelect label="Prioridad" options={prioridadOptions} placeholder="Seleccione..." {...register("prioridad")} error={errors.prioridad?.message} />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input label="Fecha de Asignación" type="date" {...register("fechaAsignacion")} error={errors.fechaAsignacion?.message} />
-            <Input label="Fecha de Inicio" type="date" {...register("fechaInicio")} error={errors.fechaInicio?.message} />
+            <FormInput label="Fecha de Asignación" type="date" {...register("fechaAsignacion")} error={errors.fechaAsignacion?.message} />
+            <FormInput label="Fecha de Inicio" type="date" {...register("fechaInicio")} error={errors.fechaInicio?.message} />
           </div>
-          <Input label="Fecha de Fin" type="date" {...register("fechaFin")} error={errors.fechaFin?.message} />
-          <Select label="Trabajador" options={trabajadores} placeholder="Seleccione un trabajador" {...register("trabajadorId")} error={errors.trabajadorId?.message} />
+          <FormInput label="Fecha de Fin" type="date" {...register("fechaFin")} error={errors.fechaFin?.message} />
+          <FormSelect label="Trabajador" options={trabajadores} placeholder="Seleccione un trabajador" {...register("trabajadorId")} error={errors.trabajadorId?.message} />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Select label="Lote (opcional)" options={[{ value: "", label: "Sin lote" }, ...lotes]} placeholder="Seleccione..." {...register("loteId")} error={errors.loteId?.message} />
-            <Select label="Cultivo (opcional)" options={[{ value: "", label: "Sin cultivo" }, ...cultivos]} placeholder="Seleccione..." {...register("cultivoId")} error={errors.cultivoId?.message} />
+            <FormSelect label="Lote (opcional)" options={[{ value: "", label: "Sin lote" }, ...lotes]} placeholder="Seleccione..." {...register("loteId")} error={errors.loteId?.message} />
+            <FormSelect label="Cultivo (opcional)" options={[{ value: "", label: "Sin cultivo" }, ...cultivos]} placeholder="Seleccione..." {...register("cultivoId")} error={errors.cultivoId?.message} />
           </div>
-          <div className="flex justify-end gap-3 pt-4">
+          <FormActions>
             <Link to="/app/actividades-asignadas"><Button type="button" variant="outline">Cancelar</Button></Link>
             <Button type="submit" disabled={isSubmitting}><Save size={16} />{isSubmitting ? "Guardando..." : "Guardar"}</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Card>
     </div>
   )

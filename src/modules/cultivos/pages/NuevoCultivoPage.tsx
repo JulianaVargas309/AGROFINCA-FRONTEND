@@ -2,8 +2,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { PageHeader, Breadcrumb } from "@/components/layout"
 import { Card } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Select } from "@/components/ui/Select"
+import { Form, FormInput, FormSelect, FormActions } from "@/components/form"
 import { Alert } from "@/components/ui/Alert"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -87,20 +86,20 @@ function NuevoCultivoPage() {
       />
       {error && <Alert severity="error">{error}</Alert>}
       <Card>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <Input label="Nombre" {...register("nombre")} error={errors.nombre?.message} />
-          <Select label="Tipo" options={tipoOptions} placeholder="Seleccione..." {...register("tipo")} error={errors.tipo?.message} />
-          <Input label="Variedad" {...register("variedad")} error={errors.variedad?.message} />
-          <Input label="Fecha de Siembra" type="date" {...register("fechaSiembra")} error={errors.fechaSiembra?.message} />
-          <Input label="Área Sembrada (ha)" type="number" {...register("areaSembrada")} error={errors.areaSembrada?.message} />
-          <Select label="Estado" options={estadoOptions} placeholder="Seleccione..." {...register("estado")} error={errors.estado?.message} />
-          <Select label="Finca" options={fincas.map((f) => ({ value: String(f.id), label: f.nombre }))} placeholder="Seleccione una finca" {...register("fincaId")} error={errors.fincaId?.message} />
-          <Select label="Lote" options={lotes.map((l) => ({ value: String(l.id), label: l.nombre }))} placeholder={fincaIdWatch ? "Seleccione un lote" : "Primero seleccione una finca"} {...register("loteId")} error={errors.loteId?.message} disabled={!fincaIdWatch} />
-          <div className="flex justify-end gap-3 pt-4">
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormInput label="Nombre" {...register("nombre")} error={errors.nombre?.message} />
+          <FormSelect label="Tipo" options={tipoOptions} placeholder="Seleccione..." {...register("tipo")} error={errors.tipo?.message} />
+          <FormInput label="Variedad" {...register("variedad")} error={errors.variedad?.message} />
+          <FormInput label="Fecha de Siembra" type="date" {...register("fechaSiembra")} error={errors.fechaSiembra?.message} />
+          <FormInput label="Área Sembrada (ha)" type="number" {...register("areaSembrada")} error={errors.areaSembrada?.message} />
+          <FormSelect label="Estado" options={estadoOptions} placeholder="Seleccione..." {...register("estado")} error={errors.estado?.message} />
+          <FormSelect label="Finca" options={fincas.map((f) => ({ value: String(f.id), label: f.nombre }))} placeholder="Seleccione una finca" {...register("fincaId")} error={errors.fincaId?.message} />
+          <FormSelect label="Lote" options={lotes.map((l) => ({ value: String(l.id), label: l.nombre }))} placeholder={fincaIdWatch ? "Seleccione un lote" : "Primero seleccione una finca"} {...register("loteId")} error={errors.loteId?.message} disabled={!fincaIdWatch} />
+          <FormActions>
             <Link to="/app/cultivos"><Button type="button" variant="outline">Cancelar</Button></Link>
             <Button type="submit" disabled={isSubmitting}><Save size={16} />{isSubmitting ? "Guardando..." : "Guardar"}</Button>
-          </div>
-        </form>
+          </FormActions>
+        </Form>
       </Card>
     </div>
   )
